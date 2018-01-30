@@ -1,0 +1,414 @@
+
+ 
+
+<!DOCTYPE html>
+
+<html lang="en" >
+
+<head>
+
+  <meta charset="UTF-8">
+
+ 
+
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+                <link rel="stylesheet" href="css/style.css">
+
+ 
+
+                <!-- Bootstrap style -->
+
+                <meta charset="utf-8">               
+
+                <meta name="viewport" content="width=device-width, initial-scale=1">          
+
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">       
+
+  
+
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"> 
+
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">   
+
+ 
+
+                <!-- header panel bar -->
+
+                <nav class="navbar navbar-default">
+
+                  <div class="container-fluid">
+
+ 
+
+                               <div class="navbar-form navbar-left">
+
+                                               <a class="navbar-brand" href="http://www.hsbcnet.com/"><img  src="src\hsbc-logo.png"></a>
+
+                               </div> 
+
+ 
+
+                               <div class="navbar-form navbar-middle">
+
+                                 <title>BlockChain - POC </title>
+
+                               </div> 
+
+ 
+
+                               <div class="navbar-form navbar-right" >
+
+                                 <a href="http://www.eulerhermes.fr/"><img  src="src\EulerHermes_LogoHeader.png"></a>
+
+                               </div>
+
+                   </div>
+
+                </nav>
+
+ 
+
+                <nav class="navbar navbar-inverse">
+
+                  <div class="container-fluid">
+
+                               <div class="navbar-header">
+
+                                 <a class="navbar-brand" href="C:\PROJETS\BlockChain\DEV\IHM_BlockChain_POC\index.html">BlockChain - POC</a>
+
+                               </div>
+
+                               <ul class="nav navbar-nav">
+
+                                 <li class="active"><a href="C:\PROJETS\BlockChain\DEV\IHM_BlockChain_POC\creditLimit.html">Credit Limit</a></li>
+
+                                 <li><a href="C:\PROJETS\BlockChain\DEV\IHM_BlockChain_POC\creditLimitValidation.html">Credit Limit Validation</a></li>
+
+                                 <li><a href="C:\PROJETS\BlockChain\DEV\IHM_BlockChain_POC\creditLimitDetail.html">Credit Limit Detail</a></li>
+
+                                 <li><a href="C:\PROJETS\BlockChain\DEV\IHM_BlockChain_POC\creditLimitAmendement.html">Credit Limit Amendement</a></li>
+
+                                 <li><a href="C:\PROJETS\BlockChain\DEV\IHM_BlockChain_POC\submittingInvoice.html">Submitting Invoice</a></li>
+
+                                 <li><a href="C:\PROJETS\BlockChain\DEV\IHM_BlockChain_POC\invoiceDetail.html">Invoice Detail</a></li>
+
+                                 <li><a href="C:\PROJETS\BlockChain\DEV\IHM_BlockChain_POC\reporting.html">Reporting</a></li>
+
+                               </ul>
+
+                               <form class="navbar-form navbar-right" action="/action_page.php">
+
+                                 <div class="input-group">
+
+                                               <input type="text" class="form-control" placeholder="Search">
+
+                                               <div class="input-group-btn">
+
+                                                 <button class="btn btn-default" type="submit">
+
+                                                               <i class="glyphicon glyphicon-search"></i>
+
+                                                 </button>
+
+                                               </div>
+
+                                 </div>
+
+                               </form>
+
+                  </div>
+
+                </nav>
+
+ 
+
+</head>
+
+ 
+
+<body> 
+
+                              
+
+                <hr> 
+
+ 
+
+                <div class="list-group">
+
+                               <h3 class="list-group-item active">New Credit Limit Request</h3>
+
+                               <div class="jumbotron">
+
+                                              
+
+                                               <h1> </h1>       
+
+                                               <form class="form-horizontal">
+
+ 
+
+                                                               <div class="form-group "> <!-- Seller Company’s Trading Name -->
+
+                                                                              <label for="seller_name_id" class="col-sm-2 control-label">Seller Company’s Trading Name</label>
+
+                                                                              <div class="col-sm-3">
+
+                                                                                              <input type="text" class="form-control" id="seller_name_id" name="seller_name" placeholder="Seller">
+
+                                                                              </div> 
+
+                                                               </div>
+
+ 
+
+                                                               <div class="form-group "> <!-- Buyer Company’s Trading Name -->
+
+                                                                              <label for="buyer_id" class="control-label col-sm-2">Buyer Company’s Trading Name</label>
+
+                                                                              <div class="col-sm-3">
+
+                                                                                              <input type="text" class="form-control" id="buyer_id" name="buyer" placeholder="Buyer">
+
+                                                                              </div> 
+
+                                                               </div> 
+
+ 
+
+                                                               <div class="form-group "> <!--Factor -->
+
+                                                                              <label for="factor_id" class="control-label col-sm-2">Factor</label>
+
+                                                                              <div class="col-sm-3">
+
+                                                                                              <select data-filter="factor" class=" filter-factor filter form-control " id="factor_id" name="factor" placeholder="Select Factor" >
+
+                                                                                                              <option value="" hidden>Select Factor</option>
+
+                                                                                                              <option value="">Show All</option>
+
+                                                                                              </select>
+
+                                                                              </div>
+
+                                                               </div> 
+
+ 
+
+                                                               <div class="form-group "> <!-- Insurer -->
+
+                                                                              <label for="insurer_id" class="control-label col-sm-2">Insurer</label>
+
+                                                                              <div class="col-sm-3">
+
+                                                                                              <input type="text" class="form-control" id="insurer_id" name="insurer" placeholder="Insurer">
+
+                                                                              </div> 
+
+                                                               </div> 
+
+ 
+
+                                                               <div class="form-group "> <!-- Limit required -->
+
+                                                                              <label for="limitRequired_id" class="control-label col-sm-2">Limit required</label>
+
+                                                                              <div class="col-sm-3">
+
+                                                                                              <input type="number" class="form-control" id="limitRequired_id" name="limitRequired" placeholder="Limit required"  >
+
+                                                                              </div>
+
+                                                               </div> 
+
+                                                              
+
+                                                               <div class="form-group "> <!-- Invoice Currency -->
+
+                                                                              <label for="invoiceCurrency_id" class="control-label col-sm-2">Invoice currency</label>
+
+                                                                              <div class="col-sm-2">
+
+                                                                              <select data-filter="model" class="form-control placeholder" id="invoiceCurrency_id" name="invoiceCurrency"  >
+
+                                                                                              <option value="" hidden> Select Invoice Currency</option>
+
+                                                                                              <option value=""> Show All </option>
+
+                                                                                              <option value="">EUR - €</option>
+
+                                                                                              <option value="">USD - $</option>
+
+                                                                                              <option value="">GBP - £</option>
+
+                                                                              </select>
+
+                                                                              </div>
+
+                                                                             
+
+                                                               </div>                 
+
+ 
+
+                                                               <div class="form-group"> <!-- Submit Button -->
+
+                                                                              <div class="col-sm-8 col-sm-offset-1">                    
+
+                                                                                              <button type="submit" class="btn btn-primary">Send</button>
+
+                                                                              </div>
+
+                                                               </div>       
+
+                                                                                               
+
+                                               </form> 
+
+                               </div> 
+
+                </div>
+
+               
+
+               
+
+               
+
+               
+
+                <div class="container">
+
+                              
+
+                               <div class="panel panel-primary filterable">
+
+                                               <div class="panel-heading">
+
+                                                               <h3 class="panel-title"><span style="color: white; font-weight: bold;">Decisions Pending</span></h3>
+
+                                                               <div class="pull-right">
+
+                                                                              <button type="button" class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+
+                                                               </div>
+
+                                               </div>                 
+
+                                               <table id="table2" data-height="460">
+
+                                                               <thead>
+
+                                                                              <tr>
+
+                                                                                              <th data-field="CompanyTradingNameSeller">Company Trading Name Seller</th>
+
+                                                                                              <th data-field="CompanyTradingName">Company Trading Name</th>
+
+                                                                                              <th data-field="RequestDate">Request Date</th>
+
+                                                                                              <th data-field="invoiceCurrency">Invoice Currency</th>
+
+                                                                                              <th data-field="limitRequired">Limit Required</th>
+
+                                                                                              <th data-field="RequestDate2">Request Date</th>
+
+                                                                              </tr>
+
+                                                               </thead>
+
+                                               </table>
+
+                               </div> 
+
+ 
+
+                </div>
+
+ 
+
+               
+
+                <!-- nice table -->
+
+<!--
+
+                <div class="container">
+
+                              
+
+                               <hr>
+
+                              
+
+                              
+
+                               <div class="creatediv1 marginTop30">
+
+                                                                              <div class="row margin-top-50">
+
+                                                                                              <div class="col-md-12">
+
+                                                                                                              <div class="panel panel-primary filterable">
+
+                                                                                                                             <div class="panel-heading">
+
+                                                                                                                                             <h3 class="panel-title"><span style="color: white; font-weight: bold;">CREDIT LIMIT</span></h3>
+
+                                                                                                                                             <div class="pull-right">
+
+                                                                                                                                                             <button type="button" class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+
+                                                                                                                                             </div>
+
+                                                                                                                             </div>
+
+                                                                                                                             <table class="span12">
+
+                                                                                                                                             <table>
+
+                                                                                                                                                             <tr class="filters">
+
+                                                                                                                                                                            <th style="width: 2%; width:50px;">
+
+                                                                                                                                                                                            <div class="checkbox radio-margin">
+
+                                                                                                                                                                                                            <label>
+
+                                                                                                                                                                                                                           <input type="checkbox" value="">
+
+                                                                                                                                                                                                                           <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+
+                                                                                                                                                                                                            </label>
+
+                                                                                                                                                                                            </div>
+
+                                                                                                                                                                            </th>
+
+                                                                                                                                                                            <th style="width: 18%">
+
+                                                                                                                                                                                            <input type="text" class="form-control" placeholder="Company Trading Name Seller" disabled>
+
+                                                                                                                                                                            </th>
+
+                                                                                                                                                                            <th style="width: 18%">
+
+                                                                                                                                                                                            <input type="text" class="form-control" placeholder="Company Trading Name" disabled>
+
+                                                                                                                                                                            </th>
+
+                                                                                                                                                                            <th style="width: 15%">
+
+                                                                                                                                                                                            <input type="text" class="form-control" placeholder="Request Date" disabled>
+
+                                                                                                                                                                            </th>
+
+                                                                                                                                                                            <th style="width: 15%">
+
+                                                                                                                                                                                            <input type="text" class="form-control" placeholder="Invoice currency" disabled>
+
+                                                                                                                                                                            </th>
+
+                                                                                                                                                                            <th style="width: 15%">

@@ -1,0 +1,242 @@
+<!doctype>
+<html> 
+<head>
+<meta charset="utf-8"/>
+<title>HSBC</title>
+
+<!-- File containing the abi, i.e. interface description with the contracts -->
+<script type="text/javascript" src="./abi.js"></script>
+<!-- Code for interacting with the node -->
+<script type='text/javascript' src="./rpc_Tools/RCP.js"></script> 
+<!-- Needed for some cryptography -->
+<script type="text/javascript" src="./sha3.js"></script>
+<!-- Handles the interactions between the webapp and the smart-contract -->
+<script type="text/javascript" src="./contract_interface.js"></script>
+<!-- reactjs libraries -->
+<!-- reactjs app --><!-- 
+<script type="text/javascript" src="./app.js"></script> -->
+<script type="text/javascript">
+
+
+    init();
+    //currentAccount = "0xf89258247f0a3e19c959904689dda25c2a0508dc";
+    currentAccount = ACCOUNTSNAME[0].address;
+    unlockAccount(currentAccount,"test");
+
+    var invoice = new Contract();
+    var InvoiceList = new Contract();
+    InvoiceList.setAbi(Invoice_List);
+    invoice.setAbi(Invoice_Contract);
+    // invoice.Invoice_Contract(
+    // amount,
+    // currentAmount,
+    // currency,
+    // dueAt,
+    // sellerAddress,
+    // buyerAddress,
+    // matchingIndex,
+    // paymentInfo) 
+
+
+
+    var invoiceListAddress;
+    var invoiceListContract = new Contract();
+
+    /* Function to simplify adding an invoice. 
+    The first parameter is the address of the list where to add the invoice, the rest is the informations to be fed as input to the invoice. 
+    Returns the address of the newly created invoice
+    */
+
+    function addInvoice(contractInvoiceList,amount, currentAmount, currency, dueAt, sellerAddress, buyerAddress,matchingIndex,paymentInfo){
+        contractInvoiceList.getInvoiceListLength(function(err,length){
+            if (err != null) console.error(err);
+            else{
+                ret = contractInvoiceList.createInvoice(function(err,res){
+                    if (err != null) console.error(err);
+                    else{
+                        ret=contractInvoiceList.getInvoiceAtIndex(length,function(err,res){
+                            if (err != null) console.error(err);
+                            else{
+                                return res;
+                            }
+                        });
+                        return ret;
+                    }
+                });
+                return ret;
+            }
+                
+
+        });
+        
+    }
+
+
+
+    
+    matchingInvoiceList.addInvoiceList(function(err, res){
+        if(err == null){
+            console.log("res:" + res);  
+            matchingInvoiceList.getInvoiceList(function(err, res){
+                if(err == null){
+                    console.log("InvoiceList address:" + "0x"+res.slice(-40));    
+                    
+                    invoiceListContract.setAbi(Invoice_List);
+                    invoiceListContract.at(res);                    
+                }     
+                    
+                else{
+                    console.error("getInvoiceList err :" + err);
+                    
+                }
+            });      
+        }
+        else{
+            console.log("InvoiceList already exists");
+            matchingInvoiceList.getInvoiceList(function(err, res){
+                if(err == null){
+                    console.log("InvoiceList address:" + "0x"+res.slice(-40));    
+                    
+                    invoiceListContract.setAbi(Invoice_List);
+                    invoiceListContract.at("0x"+res.slice(-40));
+                    
+                }     
+                    
+                else{
+                    console.error("getInvoiceList err :" + err);
+                    
+                }
+            });    
+        }
+    });  
+      
+    
+    
+
+    // matchingInvoiceList.addRemiseList(function(err, res){
+    //     if(err == null){
+    //         console.log("res:" + res);       
+    //     }
+    //     else{
+    //         console.error("remiseList already exists");
+    //     }
+    // });
+
+
+   /* function createInvoice(){
+        var buyer = document.getElementById("buyer").value;
+        var amount = document.getElementById("amount").value;
+        var seller = document.getElementById("seller").value;
+        var dueDate = document.getElementById("seller").value;
+        console.log(buyer);
+    }*/
+
+    function getInvoice(){
+
+        
+        var invoiceIndex = document.getElementById("invoiceIndex").value;
+        console.log(invoiceIndex);
+        matchingInvoiceList.getInvoiceList(function(err,res1){
+            if(err != null)console.error(err);
+            else{
+                console.log("getInvoiceList");
+                InvoiceList.at(res1);
+                InvoiceList.getInvoiceListLength(function(err,res2){
+                    if(err != null)console.error(err);
+                    else{
+                        console.log("getInvoiceListLength");
+                        InvoiceList.getInvoiceAtIndex(res2-1,function(err,res3){
+                            if(err != null)console.error(err);
+                            else{
+                                console.log("getInvoiceAtIndex");
+                                Invoice.at(res3);
+                                var invoiceData = new Object();
+
+                                Invoice.getAmount(function(err,res4){
+                                    if(err != null)console.error(err);
+                                    else{
+                                        console.log("getAmount");
+                                        invoiceData.amount = parseInt(res4,16);
+                                        Document.getElementById('divAmount').innerHTML(invoiceData.amount);
+                                        console.log("Amount : " + res4 );
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+    
+</script>
+
+</head>
+<body >
+<div id="content">
+    <div id="Invoice list">
+    <div id="invoiceCreation" >
+                      <div className="content">
+                        <span className="buyer">Buyer : </span> <input type="text" name="buyer" id="buyer">
+                        <span className="amount">Amount : </span><input type="number" name="amount" id="amount">
+
+                      </div>
+                      <div className="content">
+                        <span className="seller">Seller : </span> <input type="text" name="seller" id="seller">
+                      </div>
+
+                      <div className="content">
+                        <span className="dueDate">due Date : </span> <input type="Date" name="dueDate" id="dueDate">
+                      </div>
+            
+    <div id="Invoice_Contract">
+        <input type="button" name="createInvoice" onclick="createInvoice()" value="Create Invoice">
+        <div id = "assets"></div>
+    </div>          
+
+
+    </div>
+    <div id="Invoice_Refresh">
+        <input type="text" name="invoiceIndex" id="invoiceIndex">
+        <input type="button" name="createInvoice" onclick="getInvoice()" value="Get Invoice">
+        <div id = "assets"></div>
+    </div>
+
+    
+
+    <div id="invoiceSummary" >
+                      <div className="content">
+                        <span className="buyer">Buyer : </span><div id="divBuyer"></div>
+                        <span className="amount">Amount : </span><div id="divAmount"></div>
+
+                      </div>
+                      <div className="content">
+                        <span className="seller">Seller : </span><div id="divSeller"></div>
+                        <span className="status">Status : </span><div id="divStatus"></div>
+                      </div>
+ 
+                      <div className="content">
+                        <span className="sellerApproved">Seller approved : </span><div id="divSellerApproved"></div>
+                        <span className="buyerApproved">Buyer approved: </span><div id="divBuyerApproved"></div>
+                      </div>
+
+                      <div className="content">
+                        <span className="sellerGotPaid">Seller got paid : </span><div id="divSellerGotPaid"></div>
+                      </div>
+
+                      <div className="content">
+                        <span className="due">Due : </span><div id="divDue"></div>
+                      </div>
+
+                      <div className="content">
+                        <span className="hasTCI">Has TCI : </span><div id="divHasTCI"</div>
+                      </div>
+
+                      <div className="content">
+                        <span className="TCIDetails">TCI Details : </span><div id="divTCIDetails"></div>
+                      </div>
+
+                    </div>
+</div>
+</body>
+</html>

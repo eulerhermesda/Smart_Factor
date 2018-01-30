@@ -1,0 +1,27 @@
+Seller name;Buyer name;Document number;Document date;Document due date;Document type;Document currency;Total value
+Seller 1;Buyer 1;0001;01/01/2018;31/01/2018;Invoice;EUR;100
+Seller 1;Buyer 2;0002;01/01/2018;31/01/2018;Invoice;EUR;200
+
+
+[
+ {
+   "sellerName": "Seller 1",
+   "buyerName": "Buyer 1",
+   "documentNumber": 1,
+   "documentDate": "01/01/2018",
+   "documentDueDate": "31/01/2018",
+   "documentType": "Invoice",
+   "documentCurrency": "EUR",
+   "totalValue": 100
+ },
+ {
+   "sellerName": "Seller 1",
+   "buyerName": "Buyer 2",
+   "documentNumber": 2,
+   "documentDate": "01/01/2018",
+   "documentDueDate": "31/01/2018",
+   "documentType": "Invoice",
+   "documentCurrency": "EUR",
+   "totalValue": 200
+ },
+]

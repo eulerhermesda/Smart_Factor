@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap style -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+
+    <link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css" type="text/css">
+
+
+    <!-- header panel bar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+
+            <div class="navbar-form navbar-left">
+                <a class="navbar-brand" href="http://www.hsbcnet.com/">
+                    <img src="src\hsbc-logo.png">                    
+                </a>
+            </div>
+
+            <div class="navbar-form navbar-middle">
+                <title>BlockChain - POC </title>
+            </div>
+
+            <div class="navbar-form navbar-right">
+                <a href="http://www.eulerhermes.fr/">
+                    <img src="src\EulerHermes_LogoHeader.png">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="./index.html">BlockChain - POC</a>
+
+        <select data-filter="currentAccount" class="filter-currentAccount filter form-control " id="currentAccount" name="currentAccount" onchange="selectAccount();refreshTable();">
+        </select>
+            </div>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="./creditLimit.html">Credit Limit Request</a>
+                </li>
+                <li class="active">
+                    <a href="./creditLimitValidation.html">Credit Limit Validation</a>
+                </li>
+                <li>
+                    <a href="./creditLimitDetail.html">Credit Limit Detail</a>
+                </li>
+                <li>
+                    <a href="./creditLimitAmendement.html">Credit Limit Amendement</a>
+                </li>
+                <li>
+                    <a href="./submittingInvoice.html">Submitting Invoice</a>
+                </li>
+                <li>
+                    <a href="./invoiceDetail.html">Invoice Detail</a>
+                </li>
+                <li>
+                    <a href="./reporting.html">Reporting</a>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-right" action="/action_page.php">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+</head>
+
+
+<body>
+
+    <hr>
+ 
+    <div class="container">
+
+        <div class="row">
+            <div class="panel panel-primary filterable">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span style="color: white; font-weight: bold;">Credits Limits</span>
+                    </h3>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default btn-xs btn-filter">
+                            <span class="glyphicon glyphicon-filter"></span> Filter</button>
+                    </div>
+                </div>
+
+                <table id="creditLimiTable" class="table table-bordered table-striped">
+
+                    <thead>
+                        <tr>
+                            <th data-field="state" style="text-align:center;" data-checkbox="true"></th>
+                            <th data-field="sellerName" style="text-align:center;" data-sortable="true" data-filter-control="select">Seller</th>
+                            <th data-field="buyerName" style="text-align:center;" data-sortable="true">Buyer</th>
+                            <th data-field="factor" style="text-align:center;" data-sortable="true">Factor</th>
+                            <th data-field="insurer" style="text-align:center;" data-sortable="true">Insurer</th>
+                            <th data-field="invoiceCurrency" style="text-align:center;" data-sortable="true">Invoice Currency</th>
+                            <th data-field="limitRequired" style="text-align:center;" data-sortable="true">Limit Required</th>
+                            <th data-field="RequestDate" style="text-align:center;" data-sortable="true" id="RequestDate">Request Date</th>
+                            <th data-field="newColHtml" style="text-align:center;" data-sortable="false" id="RequestDate">Edit data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <!--  <tr>
+                            <td style="text-align:center;" class="">Validate</td>
+                            <td class="">Seller 1</td>
+                            <td style="text-align:center;" class="">test6</td>
+                            <td style="text-align:center;" class="">EUR</td>
+                            <td style="text-align:center;" class="">34500</td>
+                            <td style="text-align:center;" class="">18/02/2018</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center;" class="">Submitted</td>
+                            <td class="">Seller 2</td>
+                            <td style="text-align:center;" class="">test6</td>
+                            <td style="text-align:center;" class="">EUR</td>
+                            <td style="text-align:center;" class="">4700</td>
+                            <td style="text-align:center;" class="">18/02/2018</td>
+
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> -->
+        </script>
+    </div>
+    <div class="jquery-script-clear"></div>
+    </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+
+    <script src="./libs/bootstrap/js/bootstrap-editable.min.js"></script>
+
+    
+  
+
+
+
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./libs/bootstrap/js/bootstable.js"></script>
+    <script src="js/rpc_Tools/RPC.js"></script>
+    <script src="js/sha3.js"></script>
+    <script src="js/abi.js"></script>
+    <script src="js/contract_interface.js"></script>    
+    <script src="./js/creditLimitValidation.js"></script>
+    
+
+    <script>
+        $('table').SetEditable();
+    </script>
+
+</body>
+
+</html>

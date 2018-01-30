@@ -1,0 +1,380 @@
+body {
+
+  font-family: sans-serif;
+
+  text-align: center;
+
+  padding: 3rem;
+
+  font-size: 1.125rem;
+
+  line-height: 1.5;
+
+  -webkit-transition: all 725ms ease-in-out;
+
+  transition: all 725ms ease-in-out;
+
+}
+
+ 
+
+h1 {
+
+  font-size: 2rem;
+
+  font-weight: bolder;
+
+  margin-bottom: 1rem;
+
+}
+
+ 
+
+p {
+
+  margin-bottom: 1rem;
+
+  color: navy;
+
+}
+
+ 
+
+button {
+
+  cursor: pointer;
+
+  -webkit-appearance: none;
+
+     -moz-appearance: none;
+
+          appearance: none;
+
+  border-radius: 4px;
+
+  font-size: 1.25rem;
+
+  padding: 0.75rem 1rem;
+
+  border: 1px solid navy;
+
+  background-color: rgb(235, 00, 0);
+
+  color: white;
+
+}
+
+ 
+
+ 
+
+.margin-top-50 {
+
+                margin-top: 50px;}
+
+               
+
+/* table Filter START*/
+
+.filterable {
+
+    margin-top: 15px;
+
+}
+
+.filterable .panel-heading .pull-right {
+
+    margin-top: -20px;
+
+}
+
+.filterable .filters input[disabled] {
+
+    background-color: transparent;
+
+    border: none;
+
+    cursor: auto;
+
+    box-shadow: none;
+
+    padding: 0;
+
+    height: auto;
+
+}
+
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+
+    color: #333;
+
+}
+
+.filterable .filters input[disabled]::-moz-placeholder {
+
+    color: #333;
+
+}
+
+.filterable .filters input[disabled]:-ms-input-placeholder {
+
+    color: #333;
+
+}
+
+/*Filter END*/
+
+ 
+
+.table-widthB{
+
+    width: 48%;
+
+    }
+
+   
+
+.table-widthA{
+
+    width: 49.8%;
+
+    }
+
+   
+
+.bg{
+
+    background-color: white;
+
+    } 
+
+      
+
+.tablescroll {
+
+    overflow-y: auto;
+
+                overflow-x: hidden;
+
+                height: 189px;
+
+                margin-right: 1px;
+
+}
+
+.marginTop30{
+
+    margin-top:30px;
+
+}
+
+
+.radio,
+
+.checkbox {
+
+  margin-top: 0px;
+
+  margin-bottom: 0px;
+
+  }
+
+  .checkbox,.radio{
+
+  margin-top:0px;
+
+  margin-bottom:0px
+
+  }
+
+.radio-margin{
+
+    margin-left: -13px;
+
+                margin-top: 7px;
+
+}
+
+.radio-margin{
+
+    margin-left: -13px;
+
+    margin-top: 7px;
+
+}
+
+.EU_DataTable td, th {
+
+  padding: 6px;
+
+  border: 1px solid #ccc;
+
+  text-align: left;
+
+  height: 50px;
+
+}
+
+th {
+
+  background: #e5e5e5;
+
+  color: #454545;
+
+  font-weight: bold;
+
+  height: 40px;
+
+}
+
+/*Radio and Checkbox START*/
+
+.checkbox label:after,
+
+.radio label:after {
+
+    content: '';
+
+    display: table;
+
+    clear: both;
+
+}
+
+ 
+
+.checkbox .cr,
+
+.radio .cr {
+
+    position: relative;
+
+    display: inline-block;
+
+    border: 1px solid #a9a9a9;
+
+    border-radius: .25em;
+
+    width: 1.3em;
+
+    height: 1.3em;
+
+    float: left;
+
+    margin-right: .5em;
+
+}
+
+ 
+
+.radio .cr {
+
+    border-radius: 50%;
+
+}
+
+ 
+
+.checkbox .cr .cr-icon,
+
+.radio .cr .cr-icon {
+
+    position: absolute;
+
+    font-size: .8em;
+
+    line-height: 0;
+
+    top: 50%;
+
+    left: 20%;
+
+}
+
+ 
+
+.checkbox label input[type="checkbox"],
+
+.radio label input[type="radio"] {
+
+    display: none;
+
+}
+
+ 
+
+.checkbox label input[type="checkbox"] + .cr > .cr-icon,
+
+.radio label input[type="radio"] + .cr > .cr-icon {
+
+    transform: scale(3) rotateZ(-20deg);
+
+    opacity: 0;
+
+    transition: all .3s ease-in;
+
+}
+
+ 
+
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
+
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+
+    transform: scale(1) rotateZ(0deg);
+
+    opacity: 1;
+
+}
+
+ 
+
+.checkbox label input[type="checkbox"]:disabled + .cr,
+
+.radio label input[type="radio"]:disabled + .cr {
+
+    opacity: .5;
+
+}
+
+/*Radio and Checkbox END*/
+
+ 
+
+ 
+
+body {
+
+                padding-top: 30px;
+
+}
+
+.product {
+
+                margin-bottom: 30px;
+
+}
+
+.product-inner {
+
+                box-shadow: 0 0 10px rgba(0,0,0,.2);
+
+                padding: 10px;
+
+}
+
+.product img {
+
+                margin-bottom: 10px;
+
+}
+
+ 
+
+/* for select option placeholder */
+
+.placeholder{color: grey;}
+
+select option:first-child{color: grey; display: none;}
+
+select option{color: #555;} 

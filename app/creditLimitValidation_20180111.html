@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap style -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+
+    <link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css" type="text/css">
+
+
+    <!-- header panel bar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+
+            <div class="navbar-form navbar-left">
+                <a class="navbar-brand" href="http://www.hsbcnet.com/">
+                    <img src="src\hsbc-logo.png">
+                </a>
+            </div>
+
+            <div class="navbar-form navbar-middle">
+                <title>BlockChain - POC </title>
+            </div>
+
+            <div class="navbar-form navbar-right">
+                <a href="http://www.eulerhermes.fr/">
+                    <img src="src\EulerHermes_LogoHeader.png">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="./index.html">BlockChain - POC</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="./creditLimit.html">Credit Limit Request</a>
+                </li>
+                <li class="active">
+                    <a href="./creditLimitValidation.html">Credit Limit Validation</a>
+                </li>
+                <li>
+                    <a href="./creditLimitDetail.html">Credit Limit Detail</a>
+                </li>
+                <li>
+                    <a href="./creditLimitAmendement.html">Credit Limit Amendement</a>
+                </li>
+                <li>
+                    <a href="./submittingInvoice.html">Submitting Invoice</a>
+                </li>
+                <li>
+                    <a href="./invoiceDetail.html">Invoice Detail</a>
+                </li>
+                <li>
+                    <a href="./reporting.html">Reporting</a>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-right" action="/action_page.php">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+</head>
+
+
+<body>
+
+    <hr>
+<h3 class="list-group-item active"> Credit Limit Validation</h3>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="panel panel-primary filterable">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span style="color: white; font-weight: bold;">Decisions Pending</span>
+                    </h3>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default btn-xs btn-filter">
+                            <span class="glyphicon glyphicon-filter"></span> Filter</button>
+                    </div>
+                </div>
+                <table class="table" id="creditLimiTable2" data-height="460" data-click-to-select="true" data-filter-control="true" data-filter-show-clear="true"
+                    data-search="true">
+
+                    <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true" data-formatter="stateFormatter"></th>
+                            <th data-field="sellerName" data-sortable="true" data-filter-control="select">Company's Trading Name Seller</th>
+                            <th data-field="buyerName" data-sortable="true">Company's Trading Name</th>
+                            <th data-field="invoiceCurrency" data-sortable="true">Invoice Currency</th>
+                            <th data-field="limitRequired" data-sortable="true">Limit Required</th>
+                            <th data-field="RequestDate" data-sortable="true" id="RequestDate">Request Date</th>
+
+                            <th class="">Edit</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center;">
+                                <button class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+        <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+    </div>
+    <div class="jquery-script-clear"></div>
+    </div>
+    </div>
+    <div class="container">
+        <h1>jQuery Bootstable Plugin Example</h1>
+        <table class="table table-bordered" id="creditLimiTable">
+            <thead>
+                    <tr>
+                            <th data-field="state" data-checkbox="true" data-formatter="stateFormatter"></th>
+                            <th data-field="sellerName" data-sortable="true" data-filter-control="select" data-editable="true">Company's Trading Name Seller</th>
+                            <th data-field="buyerName" data-sortable="true">Company's Trading Name</th>
+                            <th data-field="invoiceCurrency" data-sortable="true">Invoice Currency</th>
+                            <th data-field="limitRequired" data-sortable="true">Limit Required</th>
+                            <th data-field="RequestDate" data-sortable="true" id="RequestDate">Request Date</th>
+                            <th data-field="newColHtml"  id="newColHtml">Edit 1</th> 
+                            <th data-field="colEdicHtml"  id="colEdicHtml">Edit2</th>
+                            
+                        </tr>
+            </thead>
+
+        </table>
+    </div>
+
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th class="">№</th>
+                <th class="">Name</th>
+                <th class="">Email/Login</th>
+                <th class="">Phone</th>
+                <th class="">Skype</th>
+                <th class="">Role</th>
+                <th class="">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align:center;" class="">1</td>
+                <td class="">user123</td>
+                <td style="text-align:center;" class="">123@hotmail.com</td>
+                <td style="text-align:center;" class="">0123456</td>
+                <td style="text-align:center;" class="">user123</td>
+                <td style="text-align:center;" class="">Admin</td>
+                <td style="text-align:center;">
+                    <button class="btn btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center;" class="">2</td>
+                <td class="">user456</td>
+                <td style="text-align:center;" class="">456@hotmail.com</td>
+                <td style="text-align:center;" class="">0123458</td>
+                <td style="text-align:center;" class="">user456</td>
+                <td style="text-align:center;" class="">User</td>
+                <td style="text-align:center;">
+                    <button class="btn btn-success" data-toggle="modal" data-target="#myModal">Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content"></div>
+        </div>
+        <div class="modal-dialog">
+            <div class="modal-content"></div>
+        </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true" class="">× </span>
+                        <span class="sr-only">Close</span>
+
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> -->
+
+    <!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
+
+    <script src="./libs/bootstrap/js/bootstrap-editable.min.js"></script>
+
+    <script src="./js/creditLimitValidation.js"></script>
+
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./libs/bootstrap/js/bootstable.js"></script>
+    <script>
+        $('table').SetEditable();
+    </script>
+
+</body>
+
+</html>

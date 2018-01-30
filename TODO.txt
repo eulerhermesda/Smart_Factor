@@ -1,0 +1,6 @@
+Cancel modification
+date
+progress animation
+event history
+fix the order of appearance
+add an sign that there are more options when the invoice is closed
