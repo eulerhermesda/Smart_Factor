@@ -159,20 +159,11 @@ contract Invoice_Contract{
   /**********
   Validation
   **********/
-  function validate() participantsOnly() external returns (bool success){
+  function validate() participantsOnly() external {
   
-    if(_creator == _invoice.sellerAddress && msg.sender == _invoice.buyerAddress){
-      _invoice.isActive = true;
-      statusChanged("Invoice validated");
-      return true;
-    }
-    else
-      if (_creator == _invoice.buyerAddress && msg.sender == _invoice.sellerAddress){
-        _invoice.isActive = true;
-        statusChanged("Invoice validated");
-        return true;
-      }
-    return false;
+    require(msg.sender == _invoice.buyerAddress);
+    _invoice.isActive = true;
+    statusChanged("Invoice validated");  
   }
 
   
@@ -232,9 +223,9 @@ contract Policy_Contract{ //is Invoice
   
 
   address  _creator;
-  Policy  policy;
-  Request  currentRequest;
-  address[]  invoiceList;
+  Policy public policy;
+  Request public currentRequest;
+  address[] invoiceList;
   mapping(address=>bool) invoiceActive;
 
   /**********
@@ -333,19 +324,19 @@ contract Policy_Contract{ //is Invoice
   /**********
   Validate Request
   **********/
-  function validate (uint256 amount, uint256 expireDate) onlyValidator() external{
-    require(currentRequest.isActive);
+  function validate (uint256 amount, uint256 expireDate) onlyValidator() public{
+    require(currentRequest.isActive && !policy.isActive);
     policy.totalAmount = amount;
     policy.expireDate = expireDate;
     policy.isActive = true;
-    currentRequest.isActive = false;
-    statusChanged("Request validated");
+    //currentRequest.isActive = false;
+    //statusChanged("Request validated");
   }
 
   /**********
   Reject Request
   ***********/
-  function reject() onlyValidator() external{
+  function reject() onlyValidator() public{
     require(currentRequest.isActive);
     currentRequest.isActive = false;
     statusChanged("Request rejected");
@@ -357,7 +348,6 @@ contract Policy_Contract{ //is Invoice
   **********/
 
   function invoiceSubscribe (address invoiceAddress) public returns (bool success){
-
 
     Invoice_Contract invoice = Invoice_Contract(invoiceAddress);    
 

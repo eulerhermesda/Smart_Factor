@@ -37,28 +37,40 @@
     </div>
   </nav>
 
+  <nav class="navbar navbar-default">
+
+    <div class="container-fluid">
+
+      <div class="navbar-form navbar-left">
+        <select data-filter="currentAccount" class="filter-currentAccount filter form-control " id="currentAccount" name="currentAccount" onchange="selectAccount();refreshTable();">
+          <option value="" hidden>Select Account</option>
+        </select>
+      </div>
+    </div>
+    
+  </nav>
+
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="./index.html">BlockChain - POC</a>
-        <select data-filter="currentAccount" class="filter-currentAccount filter form-control " id="currentAccount" name="currentAccount" onchange="selectAccount();refreshTable();">
-        </select>
+        
       </div>
       <ul class="nav navbar-nav">
         <li>
-          <a href="./creditLimit.html">Credit Limit Request</a>
+          <a href="./creditLimit.html">Submit Credit Limit Request</a>
         </li>
         <li>
           <a href="./creditLimitValidation.html">Credit Limit Validation</a>
         </li>
-        <li>
+        <!-- <li>
           <a href="./creditLimitDetail.html">Credit Limit Detail</a>
         </li>
         <li>
           <a href="./creditLimitAmendement.html">Credit Limit Amendement</a>
-        </li>
+        </li> -->
         <li class="active">
-          <a href="./submittingInvoice.html">Submitting Invoice</a>
+          <a href="./submittingInvoice.html">Submit Invoice</a>
         </li>
         <li >
           <a href="./invoiceDetail.html">Invoice Detail</a>
@@ -67,7 +79,7 @@
           <a href="./reporting.html">Reporting</a>
         </li>
       </ul>
-      <form class="navbar-form navbar-right" action="/action_page.php">
+      <!-- <form class="navbar-form navbar-right" action="/action_page.php">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Submit Invoice">
           <div class="input-group-btn">
@@ -76,7 +88,7 @@
             </button>
           </div>
         </div>
-      </form>
+      </form> -->
     </div>
   </nav>
 
@@ -173,7 +185,7 @@
   </div>
 
 
-  <div class="container">
+<!--   <div class="container">
 
     <div class="panel panel-primary filterable">
       <div class="panel-heading">
@@ -194,7 +206,6 @@
             <th data-field="statut">Statut</th>
             <th data-field="documentDate">Document date</th>
             <th data-field="documentDueDate">Document due date</th>
-            <!-- <th data-field="documentType">Document type</th> -->
             <th data-field="currency">Document currency</th>
             <th data-field="totalValue">Total value</th>
           </tr>
@@ -202,7 +213,7 @@
       </table>
     </div>
 
-  </div>
+  </div> -->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 

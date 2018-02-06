@@ -77,14 +77,17 @@ function EsEditable(idx) {
 function FijModoNormal(but) {
 $(but).parent().find('#bAcep').hide();
 $(but).parent().find('#bCanc').hide();
+$(but).parent().find('#bValid').show();
 $(but).parent().find('#bEdit').show();
 $(but).parent().find('#bElim').show();
+
 var $row = $(but).parents('tr');  //accede a la fila
 $row.attr('id', '');  //quita marca
 }
 function FijModoEdit(but) {
 $(but).parent().find('#bAcep').show();
 $(but).parent().find('#bCanc').show();
+$(but).parent().find('#bValid').hide();
 $(but).parent().find('#bEdit').hide();
 $(but).parent().find('#bElim').hide();
 var $row = $(but).parents('tr');  //accede a la fila

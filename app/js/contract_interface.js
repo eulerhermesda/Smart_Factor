@@ -115,6 +115,8 @@ function init(){
   // Init invoice Factory
   invoiceList.setAbi(Invoice_List);
   invoiceList.at("0xf25186b5081ff5ce73482ad761db0eb0d25abfbf");
+
+  document.getElementById("currentAccount").value="0x627306090abab3a6e1400e9345bc60c78a8bef57";
 }
 
 
@@ -295,6 +297,7 @@ async function getInvoiceInfosAt(address){
   
   await Promise.all(promises).then(data => {
     var i = 0;
+    result.address=address;
     result.totalValue = data[i++];
     result.currentAmount = data[i++];
     result.currencyId = data[i++];
@@ -306,8 +309,11 @@ async function getInvoiceInfosAt(address){
 
     result.sellerName = findNameFromAddress(result.seller);
     result.buyerName = findNameFromAddress(result.buyer);
-    result.currency = findCurrencyFromId(result.currencyId);
+    result.currency = findCurrencyFromId(result.currencyId);    
     result.statut = result.isActive?"Approved":"Not Approved";
+    if (result.totalValue == result.currentAmount){
+      result.statut = "Paid";
+    }
   });
   return result;
   
@@ -369,7 +375,8 @@ async function getAllPolicies(){
           //console.log(data.sellerAddress,currentAccount);            
             if (hex2address(data.sellerAddress) == currentAccount || 
               hex2address(data.buyerAddress ) == currentAccount ||
-              hex2address(data.validatorAddress) == currentAccount){
+              hex2address(data.validatorAddress) == currentAccount ||
+              hex2address(data.factorAddress) == currentAccount){
                resolve(data);
             }
             else{
@@ -399,7 +406,7 @@ async function getPolicyList(){
 
         policyList.getPoliciyListLength(function(err,res){
 
-            if (err!=null) reject("getTotalAmount err : " + err);
+            if (err!=null) reject("getPoliciyListLength err : " + err);
             else{
                 resolve(hex2int(res));
             } 
@@ -567,6 +574,7 @@ async function getCreditLimitInfosAt(address){
   
   await Promise.all(promises).then(data => {  
     var i = 0;
+    result.address=address;
     result.limitRequired = data[i++];
     result.currentAmount =data[i++];
     result.isActive = data[i++];
@@ -590,6 +598,7 @@ async function getCreditLimitInfosAt(address){
       result.limitRequired = result.requestAmount;
       result.endDate = result.requestDate;
     }
+    result.statut = result.isActive?"Approved":"Not Approved";
     
        
   });
@@ -620,4 +629,120 @@ function findGetParameter(parameterName) {
           if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
         });
     return result;
+}
+
+async function getEulerExposition(){
+  limits = 0;
+  used = 0;
+  var policyListLength;
+  var policyAddressList=[];
+
+  promise = new Promise((resolve,reject)=>{
+    policyList.getPoliciyListLength((err,res)=>{
+      if (err!=null) reject(err);
+      else{
+        resolve(hex2int(res));
+      }
+    });
+  });
+
+  await promise.then(data=>{
+    policyListLength = data;
+  })
+
+  promiseList=[];
+  for(var i = 0; i < policyListLength;i++){
+    promiseList.push(new Promise((resolve,reject)=>{
+      policyList.getPolicyAtIndex(i,function(err,res){
+        if(err!=null) reject(err);
+        else{
+          resolve(hex2address(res));
+        }
+      });
+    }));
+  }
+
+  await Promise.all(promiseList).then(data=>{
+    policyAddressList = data;
+  });
+
+  promiseList=[];
+    
+  for(var i=0;i<policyAddressList.length;i++){
+      promiseList.push(new Promise((resolve,reject)=>{            
+          getCreditLimitInfosAt(hex2address(policyAddressList[i])).then(data=>{
+            resolve(data);            
+          })
+      }))
+  }
+
+  await Promise.all(promiseList).then(data=>{
+    for (var i = 0; i<data.length;i++){
+      if (data[i].isActive){
+        limits += data[i].limitRequired;
+        used += data[i].currentAmount;  
+      }    
+    }
+    
+  }).catch(e=>{})
+
+  return ([limits,used]);
+}
+
+async function getHSBCExposition(){
+  limits = 0;
+  used = 0;
+  var policyListLength;
+  var policyAddressList=[];
+
+  promise = new Promise((resolve,reject)=>{
+    policyList.getPoliciyListLength((err,res)=>{
+      if (err!=null) reject(err);
+      else{
+        resolve(hex2int(res));
+      }
+    });
+  });
+
+  await promise.then(data=>{
+    policyListLength = data;
+  })
+
+  promiseList=[];
+  for(var i = 0; i < policyListLength;i++){
+    promiseList.push(new Promise((resolve,reject)=>{
+      policyList.getPolicyAtIndex(i,function(err,res){
+        if(err!=null) reject(err);
+        else{
+          resolve(hex2address(res));
+        }
+      });
+    }));
+  }
+
+  await Promise.all(promiseList).then(data=>{
+    policyAddressList = data;
+  });
+
+  promiseList=[];
+    
+  for(var i=0;i<policyAddressList.length;i++){
+      promiseList.push(new Promise((resolve,reject)=>{            
+          getCreditLimitInfosAt(hex2address(policyAddressList[i])).then(data=>{
+            resolve(data);            
+          })
+      }))
+  }
+
+  await Promise.all(promiseList).then(data=>{
+    for (var i = 0; i<data.length;i++){
+      if (data[i].isActive){
+        limits += data[i].limitRequired;
+        used += data[i].currentAmount;  
+      }    
+    }
+    
+  }).catch(e=>{})
+
+  return ([limits,used]);
 }

@@ -41,29 +41,40 @@
         </div>
     </nav>
 
+    <nav class="navbar navbar-default">
+
+    <div class="container-fluid">
+
+      <div class="navbar-form navbar-left">
+        <select data-filter="currentAccount" class="filter-currentAccount filter form-control " id="currentAccount" name="currentAccount" onchange="selectAccount();refreshTable();">
+          <option value="" hidden>Select Account</option>
+        </select>
+      </div>
+    </div>
+    
+  </nav>
+
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="./index.html">BlockChain - POC</a>
-
-        <select data-filter="currentAccount" class="filter-currentAccount filter form-control " id="currentAccount" name="currentAccount" onchange="selectAccount();refreshTable();">
-        </select>
+       
             </div>
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="./creditLimit.html">Credit Limit Request</a>
+                    <a href="./creditLimit.html">Submit Credit Limit Request</a>
                 </li>
                 <li class="active">
                     <a href="./creditLimitValidation.html">Credit Limit Validation</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="./creditLimitDetail.html">Credit Limit Detail</a>
                 </li>
                 <li>
                     <a href="./creditLimitAmendement.html">Credit Limit Amendement</a>
-                </li>
+                </li> -->
                 <li>
-                    <a href="./submittingInvoice.html">Submitting Invoice</a>
+                    <a href="./submittingInvoice.html">Submit Invoice</a>
                 </li>
                 <li>
                     <a href="./invoiceDetail.html">Invoice Detail</a>
@@ -72,7 +83,7 @@
                     <a href="./reporting.html">Reporting</a>
                 </li>
             </ul>
-            <form class="navbar-form navbar-right" action="/action_page.php">
+            <!-- <form class="navbar-form navbar-right" action="/action_page.php">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search">
                     <div class="input-group-btn">
@@ -81,7 +92,7 @@
                         </button>
                     </div>
                 </div>
-            </form>
+            </form> -->
         </div>
     </nav>
 
@@ -98,11 +109,11 @@
             <div class="panel panel-primary filterable">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <span style="color: white; font-weight: bold;">Credits Limits</span>
+                        <span style="color: white; font-weight: bold;">Decisions pending</span>
                     </h3>
                     <div class="pull-right">
-                        <button type="button" class="btn btn-default btn-xs btn-filter">
-                            <span class="glyphicon glyphicon-filter"></span> Filter</button>
+                        <!-- <button type="button" class="btn btn-default btn-xs btn-filter">
+                            <span class="glyphicon glyphicon-filter"></span> Filter</button> -->
                     </div>
                 </div>
 
@@ -110,15 +121,18 @@
 
                     <thead>
                         <tr>
-                            <th data-field="state" style="text-align:center;" data-checkbox="true"></th>
+                            <!-- <th data-field="state" style="text-align:center;" data-checkbox="true"></th> -->
+                             <!-- <th data-field="address" data-visible="true">Policy Address</th> -->
                             <th data-field="sellerName" style="text-align:center;" data-sortable="true" data-filter-control="select">Seller</th>
                             <th data-field="buyerName" style="text-align:center;" data-sortable="true">Buyer</th>
                             <th data-field="factor" style="text-align:center;" data-sortable="true">Factor</th>
-                            <th data-field="insurer" style="text-align:center;" data-sortable="true">Insurer</th>
-                            <th data-field="invoiceCurrency" style="text-align:center;" data-sortable="true">Invoice Currency</th>
-                            <th data-field="limitRequired" style="text-align:center;" data-sortable="true">Limit Required</th>
-                            <th data-field="RequestDate" style="text-align:center;" data-sortable="true" id="RequestDate">Request Date</th>
-                            <th data-field="newColHtml" style="text-align:center;" data-sortable="false" id="RequestDate">Edit data</th>
+                            <th data-field="validator" style="text-align:center;" data-sortable="true">Insurer</th>
+                            <th data-field="currency" style="text-align:center;" data-sortable="true">Invoice Currency</th>
+                            <th data-field="limitRequired" style="text-align:center;" data-sortable="true">Limit Requested</th>
+                            <th data-field="requestDate" style="text-align:center;" data-sortable="true" id="RequestDate">End Date</th>
+                            <th data-field="currentAmount" style="text-align:center;" data-sortable="true" id="RequestDate">Current Exposition</th>
+                            <th data-field="statut" style="text-align:center;" data-sortable="true" id="RequestDate">Status</th>
+                            <th data-field="newColHtml" style="text-align:center;" data-sortable="false" id="RequestDate">Validate data</th>
                         </tr>
                     </thead>
                     <tbody>

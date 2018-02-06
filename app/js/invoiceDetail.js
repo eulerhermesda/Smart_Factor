@@ -88,8 +88,8 @@ $(document).ready(function () {
         }
 
     });
-    document.getElementById('endDate_id').value = new Date().toDateInputValue();
-
+    //document.getElementById('endDate_id').value = new Date().toDateInputValue();
+    refreshPage();
     init();
     var $table2 = $('#table2');
     $(function () {
@@ -101,7 +101,18 @@ $(document).ready(function () {
                 //console.log("length Invoice list : " + hex2int(res));
                 getAllInvoices().then(dat=>{
                     creditsLimitsdata=dat;
-                    console.log(dat);
+                    for (var i=0;i<dat.length;i++){
+                         var newColHtml = '<div class="btn-group pull-right">'+
+                            '<button id="bValid" type="button" class="btn btn-sm btn-default" onclick="validateInvoice(this,\''+dat[i].address+'\');">' + 
+                            '<span class="glyphicon glyphicon-ok" > </span>'+
+                            '</button>'+
+                            '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="paidInvoice(this,\''+dat[i].address+'\');">' +
+                            '<span class="glyphicon glyphicon-usd" > </span>'+
+                            '</button>';
+                        dat[i].newColHtml=newColHtml;
+                    }
+
+                    
                     $table2.bootstrapTable({
                         data: dat
                     });
@@ -1211,6 +1222,17 @@ function refreshTable(){
 
     getAllInvoices().then(dat=>{            
         creditsLimitsdata=dat;
+        for (var i=0;i<dat.length;i++){
+            var newColHtml = '<div class="btn-group pull-right">'+
+                        '<button id="bValid" type="button" class="btn btn-sm btn-default" onclick="validateInvoice(this,\''+dat[i].address+'\');">' + 
+                        '<span class="glyphicon glyphicon-ok" > </span>'+
+                        '</button>'+
+                        '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="paidInvoice(this,\''+dat[i].address+'\');">' +
+                        '<span class="glyphicon glyphicon-usd" > </span>'+
+                        '</button>';
+            dat[i].newColHtml=newColHtml;
+        }
+
         $table2.bootstrapTable('load',{
             data: dat
         });
@@ -1251,7 +1273,7 @@ async function getAllInvoices(){
 
     await promise.then(data=>{
         invoiceListLength = data;
-        console.log("Invoice List Length : " + data);
+//        console.log("Invoice List Length : " + data);
     });
 
     promiseList=[];
@@ -1329,4 +1351,87 @@ function getInvoiceAtIndex(invoiceIndex){
 
 function handleSellerChange(){
 
+}
+
+function validateInvoice(but,address){
+    console.log("validateInvoice");
+    var invoice = new Contract();
+    invoice.setAbi(Invoice_Contract);
+    invoice.at(address);
+    invoice.validate((err,res)=>{
+
+        if (err != null) console.error(err);
+        else{
+            console.log("Invoice Validated");
+            refreshTable();
+        }
+
+    });
+
+
+}
+
+function paidInvoice(but,address){
+    console.log("validateInvoice");
+    var $row = $(but).parents('tr');
+    var $cols = $row.find('td');
+    // get changed values    
+    amount = parseInt($cols[7].innerHTML);
+
+    var invoice = new Contract();
+    invoice.setAbi(Invoice_Contract);
+    invoice.at(address);
+    invoice.gotPaid(int2hex(amount),(err,res)=>{
+
+        if (err != null) console.error(err);
+        else{
+            console.log("Invoice Validated");
+            refreshTable();
+        }
+
+    });
+
+}
+
+function deleteInvoice(but, address){
+    console.log("deleteInvoice");
+    var $row = $(but).parents('tr');  //accede a la fila
+    $row.remove();
+    params.onDelete();
+}
+
+function validateEditInvoice(but){
+    console.log("validateEditInvoice");
+    //Acepta los cambios de la edición
+    var $row = $(but).parents('tr');  //accede a la fila
+    var $cols = $row.find('td');  //lee campos
+    if (!ModoEdicion($row)) return;  //Ya está en edición
+    //Está en edición. Hay que finalizar la edición
+    IterarCamposEdit($cols, function($td) {  //itera por la columnas
+      var cont = $td.find('input').val(); //lee contenido del input
+      $td.html(cont);  //fija contenido y elimina controles
+    });
+    FijModoNormal(but);
+    params.onEdit($row);
+}
+
+function cancelEditInvoice(but,address){
+    console.log("cancelEditInvoice");
+    //Rechaza los cambios de la edición
+    var $row = $(but).parents('tr');  //accede a la fila
+    var $cols = $row.find('td');  //lee campos
+    if (!ModoEdicion($row)) return;  //Ya está en edición
+    //Está en edición. Hay que finalizar la edición
+    IterarCamposEdit($cols, function($td) {  //itera por la columnas
+        var cont = $td.find('div').html(); //lee contenido del div
+        $td.html(cont);  //fija contenido y elimina controles
+    });
+    FijModoNormal(but);
+}
+
+function refreshPage(){
+  setTimeout(function() {
+    refreshTable();
+    refreshPage();
+}, 5000);
 }

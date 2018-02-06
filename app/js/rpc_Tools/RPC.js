@@ -7,7 +7,7 @@ curl -H "Content-Type: application/json" -X POST --data '{"jsonrpc":"2.0","metho
 
 var rpcUrl = "http://127.0.0.1:9545";
 //var rpcUrl = "http://52.215.75.218:8545"
-var maxGas = "0x800000";
+var maxGas = "0x47e7c3";
 function estimateGas(_from,_to,_data){
 
     return new Promise(function(resolve, reject){
@@ -73,7 +73,7 @@ async function sendTransaction(_from,_to,data,cb, callback){// cb = original cal
 
     estimatedGas = estimatedGas.toString(16);
     var params = generate(_from,_to,data,"eth_sendTransaction", estimatedGas);
-    //console.log(params);
+    console.log(params);
     http.open("POST", url, true);    
     http.setRequestHeader("Content-Type", "application/json");
 

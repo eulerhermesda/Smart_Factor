@@ -741,14 +741,14 @@ function testPolicy(){
 }
 
 function refreshTable(){
-    console.log("refreshTable");
+    //console.log("refreshTable");
     var $table = $('#creditLimiTable');
     policyList.getPoliciyListLength((err,res)=>{
         if(err!=null) console.error(err);
         else{   
 
             getAllPolicies().then(dat=>{
-                console.log(dat)
+                //console.log(dat)
                 creditsLimitsdata=dat;
                 $table.bootstrapTable('load',{
                     data: dat.reverse()
@@ -761,7 +761,7 @@ function refreshTable(){
 
 function refreshPage(){
   setTimeout(function() {
-    //refreshTable();
+    refreshTable();
     refreshPage();
 }, 5000);
 }

@@ -37,28 +37,40 @@
     </div>
   </nav>
 
+  <nav class="navbar navbar-default">
+
+    <div class="container-fluid">
+
+      <div class="navbar-form navbar-left">
+        <select data-filter="currentAccount" class="filter-currentAccount filter form-control " id="currentAccount" name="currentAccount" onchange="selectAccount();refreshTable();">
+          <option value="" hidden>Select Account</option>
+        </select>
+      </div>
+    </div>
+    
+  </nav>
+
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="./index.html">BlockChain - POC</a>
-        <select data-filter="currentAccount" class="filter-currentAccount filter form-control " id="currentAccount" name="currentAccount" onchange="selectAccount();refreshTable();">
-        </select>
+        
       </div>
       <ul class="nav navbar-nav">
         <li class="active">
-          <a href="./creditLimit.html">Credit Limit Request</a>
+          <a href="./creditLimit.html">Submit Credit Limit Request</a>
         </li>
         <li>
           <a href="./creditLimitValidation.html">Credit Limit Validation</a>
         </li>
-        <li>
+        <!-- <li>
           <a href="./creditLimitDetail.html">Credit Limit Detail</a>
         </li>
         <li>
           <a href="./creditLimitAmendement.html">Credit Limit Amendement</a>
-        </li>
+        </li> -->
         <li>
-          <a href="./submittingInvoice.html">Submitting Invoice</a>
+          <a href="./submittingInvoice.html">Submit Invoice</a>
         </li>
         <li>
           <a href="./invoiceDetail.html">Invoice Detail</a>
@@ -67,7 +79,7 @@
           <a href="./reporting.html">Reporting</a>
         </li>
       </ul>
-      <form class="navbar-form navbar-right" action="/action_page.php">
+      <!-- <form class="navbar-form navbar-right" action="/action_page.php">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search">
           <div class="input-group-btn">
@@ -76,7 +88,7 @@
             </button>
           </div>
         </div>
-      </form>
+      </form> -->
     </div>
   </nav>
 
@@ -94,17 +106,15 @@
       <form class="form-horizontal" id="createForm">
 
         <div class="form-group ">
-          <!--Seller Company’s Trading Name -->
           <label for="seller_name_id" class="control-label col-sm-2">Seller Company’s Trading Name</label>
           <div class="col-sm-3">
             <select data-filter="sellerName" class=" filter-sellerName filter form-control " id="seller_name_id" name="seller_name" onchange="handleSellersChange();">
-               <!-- <option value="" hidden>Select Seller</option>  -->
             </select>
           </div>
         </div>
 
         <div class="form-group ">
-          <!--Buyer Company’s Trading Name -->
+          
           <label for="buyer_name_id" class="control-label col-sm-2">Buyer Company’s Trading Name</label>
           <div class="col-sm-3">
             <select data-filter="buyerName" class=" filter-buyerName filter form-control " id="buyer_name_id" name="buyer_name">
@@ -115,7 +125,7 @@
 
 
         <div class="form-group ">
-          <!--Factor -->
+          
           <label for="factor_id" class="control-label col-sm-2">Factor</label>
           <div class="col-sm-3">
             <select data-filter="factor" class=" filter-factor filter form-control " id="factor_id" name="factor" placeholder="Select Factor">
@@ -125,7 +135,7 @@
         </div>
 
         <div class="form-group ">
-          <!--Insurer -->
+          
           <label for="insurer_id" class="control-label col-sm-2">Insurer</label>
           <div class="col-sm-3">
             <select data-filter="insurer" class=" filter-insurer filter form-control " id="insurer_id" name="insurer" placeholder="Select Insurer">
@@ -135,7 +145,7 @@
         </div>
 
         <div class="form-group ">
-          <!-- Limit required -->
+          
           <label for="limitRequired_id" class="control-label col-sm-2">Limit required</label>
           <div class="col-sm-3">
             <input type="number" class="form-control" id="limitRequired_id" name="limitRequired" placeholder="Limit required" value="10">
@@ -143,11 +153,11 @@
         </div>
 
         <div class="form-group ">
-          <!-- Invoice Currency -->
+          
           <label for="invoiceCurrency_id" class="control-label col-sm-2">Invoice currency</label>
           <div class="col-sm-2">
             <select data-filter="model" class="form-control placeholder" id="invoiceCurrency_id" name="invoiceCurrency">
-              <!-- <option value="" hidden> Select Invoice Currency</option> -->
+              
             </select>
           </div>
         </div>
@@ -173,7 +183,7 @@
   </div>
 
 
-  <div class="container">
+  <!-- <div class="container">
 
     <div class="row">
       <div class="panel panel-primary filterable">
@@ -182,8 +192,7 @@
             <span style="color: white; font-weight: bold;">Decisions Pending</span>
           </h3>
           <div class="pull-right">
-            <button type="button" class="btn btn-default btn-xs btn-filter">
-              <span class="glyphicon glyphicon-filter"></span> Filter</button>
+            
           </div>
         </div>
         <table class="table" id="creditLimiTable" data-height="460" data-click-to-select="true" data-filter-control="true" data-filter-show-clear="true">
@@ -210,7 +219,7 @@
     </div>
 
   </div>
-
+ -->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
