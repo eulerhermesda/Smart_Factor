@@ -185,13 +185,13 @@ $(function () {
                  //   if (!dat[i].isActive /*&& dat[i].validatorAddress == currentAccount*/){
                         var newColHtml = '<div class="btn-group pull-right">'+
                         '<button id="bValid" type="button" class="btn btn-sm btn-default" onclick="validatePolicy(this,\''+dat[i].address+'\');">' + 
-                        '<span class="glyphicon glyphicon-ok" > </span>'+
+                        '<span >Validate </span>'+
                         '</button>'+
                         // '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="editPolicy(this,\''+dat[i].address+'\');">' +
                         // '<span class="glyphicon glyphicon-pencil" > </span>'+
                         // '</button>'+
                         '<button id="bElim" type="button" class="btn btn-sm btn-default" onclick="deletePolicy(this,\''+dat[i].address+'\');">' +
-                        '<span class="glyphicon glyphicon-trash" > </span>'+
+                        '<span  >Reject </span>'+
                         '</button>'+
                         // '<button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="validateEditPolicy(this,\''+dat[i].address+'\');">' + 
                         // '<span class="glyphicon glyphicon-ok" > </span>'+
@@ -414,13 +414,13 @@ function refreshTable(){
                             //if (!dat[i].isActive /*&& dat[i].validatorAddress == currentAccount*/){
                                 var newColHtml = '<div class="btn-group pull-right">'+
                                 '<button id="bValid" type="button" class="btn btn-sm btn-default" onclick="validatePolicy(this,\''+dat[i].address+'\');">' + 
-                                '<span class="glyphicon glyphicon-ok" > </span>'+
+                                '<span  >Validate </span>'+
                                 '</button>'+
                                 // '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="editPolicy(this,\''+dat[i].address+'\');">' +
                                 // '<span class="glyphicon glyphicon-pencil" > </span>'+
                                 // '</button>'+
                                 '<button id="bElim" type="button" class="btn btn-sm btn-default" onclick="deletePolicy(this,\''+dat[i].address+'\');">' +
-                                '<span class="glyphicon glyphicon-trash" > </span>'+
+                                '<span >Reject </span>'+
                                 '</button>'+
                                 // '<button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="validateEditPolicy(this,\''+dat[i].address+'\');">' + 
                                 // '<span class="glyphicon glyphicon-ok" > </span>'+
@@ -457,8 +457,7 @@ function validatePolicy(but,address){
 
     var policy = new Contract();
     policy.setAbi(Policy_Contract);
-    policy.at(address);
-    console.log("test",address);
+    policy.at(address);    
     policy.validate(int2hex(limit),int2hex(date),((err,res)=>{
 
         if (err != null) console.error(err);
@@ -474,6 +473,7 @@ function validatePolicy(but,address){
 
 function editPolicy(but,address){
     console.log("editPolicy");  
+
     var $row = $(but).parents('tr');  //accede a la fila
     var $cols = $row.find('td');  //lee campos
     if (ModoEdicion($row)) return;  //Ya está en edición
@@ -491,8 +491,21 @@ function editPolicy(but,address){
 function deletePolicy(but, address){
     console.log("deletePolicy");
     var $row = $(but).parents('tr');  //accede a la fila
-    $row.remove();
-    params.onDelete();
+
+    var policy = new Contract();
+    policy.setAbi(Policy_Contract);
+    policy.at(address);    
+    policy.reject(((err,res)=>{
+
+        if (err != null) console.error(err);
+        else{
+            console.log("Policy Rejected");
+            refreshTable();
+        }
+
+    }));
+    //$row.remove();
+    //params.onDelete();
 }
 
 function validateEditPolicy(but){

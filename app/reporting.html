@@ -53,11 +53,11 @@
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="./index.html">BlockChain - POC</a>
+        <a class="navbar-brand" onclick="localStorage.setItem('transactions','');">BlockChain - POC</a>
         
       </div>
       <ul class="nav navbar-nav">
-        <li class="active">
+        <li>
           <a href="./creditLimit.html">Submit Credit Limit Request</a>
         </li>
         <li>
@@ -92,11 +92,59 @@
     </div>
   </nav>
 
+  
+
 </head>
 
 <body>
 
+  <hr>
+
+<div cladd="container-fluid" style="width:100%">
+  <div class="container-fluid" id="reports" style="width: 90%">
+    <div class="reporting-container">
+      <div class="container-fluid">
+        <div class="navbar-form navbar-left">
+          <a class="navbar-brand" href="http://www.hsbcnet.com/">
+            <img src="src\hsbc-logo.png">
+          </a>
+        </div>
+        <div class="navbar-form navbar-right" style="text-align: right">
+          <b>Total exposure :</b> <span id="HSBC_tot"></span>  <br>
+          <b>Current :</b> <span id="HSBC_current"></span> <br>
+        </div>
+      </div>
+    </div>
+    <div class="reporting-container">
+      <div class="container-fluid">
+        <div class="navbar-form navbar-left">
+          <a href="http://www.eulerhermes.fr/">
+            <img src="src\EulerHermes_LogoHeader.png">
+          </a>
+        </div>
+        <div class="navbar-form navbar-right" style="text-align: right">
+          <b>Total exposure :</b> <span id="EH_tot"></span>  <br>
+          <b>Current :</b> <span id="EH_current"></span> <br>
+        </div>
+      </div>
+    </div>
+  </div>
   
+  <div class="container-fluid" id="transactions" style="">
+    
+
+  </div>
+</div>
+
+  
+<script src="js/rpc_Tools/RPC.js"></script>
+  <script src="js/contract_addresses.js"></script>
+  <script src="js/contract_interface.js"></script>
+  <script src="js/sha3.js"></script>
+  <script src="js/abi.js"></script>
+  <script src="js/reporting.js"></script>
 </body>
 
 </html>
+
+<!-- from to action validate node -->

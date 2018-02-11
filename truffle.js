@@ -12,8 +12,14 @@ module.exports = {
     "images/": "images/"
   }),*/
   networks: {
-    development: {
+    production: {
       host: "52.215.75.218",
+      port: 8545,
+      network_id: "*",
+      gas : 4712387
+    },
+    test: {
+      host: "127.0.0.1",
       port: 8545,
       network_id: "*",
       gas : 4712387

@@ -5,7 +5,7 @@ curl -H "Content-Type: application/json" -X POST --data '{"jsonrpc":"2.0","metho
 
 */
 
-var rpcUrl = "http://127.0.0.1:9545";
+var rpcUrl = "http://127.0.0.1:8545";
 //var rpcUrl = "http://52.215.75.218:8545"
 var maxGas = "0x47e7c3";
 function estimateGas(_from,_to,_data){
@@ -191,16 +191,45 @@ class Contract{
                 // If we have a call, the result of the operation is returned in the result field of the response
             tmpCode = tmpCode +    'var response = JSON.parse(http.responseText);'+
                 'var res=[];'+
+
+                // Logging of transaction
+                 'var trans = new Object();'+
+                 'trans.from=currentAccount;'+
+                 'trans.to= this.address;'+
+                 'trans.action="'+funcname+'";'+
+                 'trans.node=Math.floor(Math.random()*10)%3+1;'+
+
                 'var err=undefined;'+
                 'if (response.error){'+
                     'console.log(response);'+
                     'err = response.error;'+
+
+                    // Logging of transaction
+                    'trans.validate=0;'+
                 '}'+
                 'else {'+
+
+                    // Logging of transaction
+                    'trans.validate=1;'+
 
                     'for (var i=0; i<'+outputsType.length+';i++){'+
                         'res[i]="0x"+response.result.substring(2+64*i,66+64*i);'+
                     '}'+
+                    
+                '}'+
+
+                //Logging of transaction
+                'trans.res=generateRandomAddress();'+
+                'transtmp=localStorage.getItem("transactions");'+
+                'if("'+funcType+'" == "sendTransaction"){'+
+                'if (!transtmp)'+
+                    
+                    'localStorage.setItem("transactions",JSON.stringify([trans]));'+
+                'else{'+
+                    'transtmp = JSON.parse(transtmp);'+
+                    'transtmp.push(trans);'+
+                    'localStorage.setItem("transactions",JSON.stringify(transtmp));'+
+                '}'+
                 '}'+
 
                 'arguments[arguments.length-1](err,res);';
@@ -213,6 +242,8 @@ class Contract{
             this.ready=true;
         }
     }
+
+    
 
 
     at(address){
@@ -347,4 +378,14 @@ function rpcTestFunction(){
     };
 
     http.send(params);
+}
+
+function generateRandomAddress(){
+    const list= [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+    var res= "0x";
+    for (var i = 0; i<64;i++){
+        var rand = Math.floor(Math.random()*16);        
+        res += list[rand];
+    }    
+    return res;
 }

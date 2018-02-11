@@ -38,6 +38,10 @@ var Invoice_Contract =[
           "type": "address"
         },
         {
+          "name": "factorAddress",
+          "type": "address"
+        },
+        {
           "name": "isActive",
           "type": "bool"
         },
@@ -69,40 +73,12 @@ var Invoice_Contract =[
       "type": "function"
     },
     {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "gotPaid",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
-      "name": "isActive",
+      "name": "policyList",
       "outputs": [
         {
-          "name": "isActive",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getCounterpartAddress",
-      "outputs": [
-        {
-          "name": "counterpartAddress",
+          "name": "",
           "type": "address"
         }
       ],
@@ -113,203 +89,15 @@ var Invoice_Contract =[
     {
       "constant": true,
       "inputs": [],
-      "name": "getCurrentAmount",
+      "name": "_creator",
       "outputs": [
         {
-          "name": "currentAmount",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "displayInvoice",
-      "outputs": [
-        {
-          "name": "amount",
-          "type": "uint256"
-        },
-        {
-          "name": "currency",
-          "type": "uint256"
-        },
-        {
-          "name": "dueAt",
-          "type": "uint256"
-        },
-        {
-          "name": "issueAt",
-          "type": "uint256"
-        },
-        {
-          "name": "sellerAddress",
-          "type": "address"
-        },
-        {
-          "name": "buyerAddress",
+          "name": "",
           "type": "address"
         }
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getBuyer",
-      "outputs": [
-        {
-          "name": "buyer",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "validate",
-      "outputs": [
-        {
-          "name": "success",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getCurrency",
-      "outputs": [
-        {
-          "name": "dueAt",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getPolicyAttached",
-      "outputs": [
-        {
-          "name": "policyAttached",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "paymentInfo",
-          "type": "address"
-        }
-      ],
-      "name": "setPaymentInformation",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getCreationDate",
-      "outputs": [
-        {
-          "name": "dueAt",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getAmount",
-      "outputs": [
-        {
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getSeller",
-      "outputs": [
-        {
-          "name": "seller",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getDueDate",
-      "outputs": [
-        {
-          "name": "dueAt",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getPaidStatus",
-      "outputs": [
-        {
-          "name": "status",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "policyAddress",
-          "type": "address"
-        }
-      ],
-      "name": "attachPolicy",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -354,10 +142,319 @@ var Invoice_Contract =[
       ],
       "name": "statusChanged",
       "type": "event"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getCurrentAmount",
+      "outputs": [
+        {
+          "name": "currentAmount",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getAmount",
+      "outputs": [
+        {
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isActive",
+      "outputs": [
+        {
+          "name": "isActive",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getSeller",
+      "outputs": [
+        {
+          "name": "seller",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getBuyer",
+      "outputs": [
+        {
+          "name": "buyer",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getDueDate",
+      "outputs": [
+        {
+          "name": "dueAt",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getCreationDate",
+      "outputs": [
+        {
+          "name": "dueAt",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getCurrency",
+      "outputs": [
+        {
+          "name": "dueAt",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getCounterpartAddress",
+      "outputs": [
+        {
+          "name": "counterpartAddress",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getPaidStatus",
+      "outputs": [
+        {
+          "name": "status",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getPolicyAttached",
+      "outputs": [
+        {
+          "name": "policyAttached",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_policyList",
+          "type": "address"
+        }
+      ],
+      "name": "setPolicyList",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getPolicyList",
+      "outputs": [
+        {
+          "name": "policyL",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getFactor",
+      "outputs": [
+        {
+          "name": "fact",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "displayInvoice",
+      "outputs": [
+        {
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "name": "currency",
+          "type": "uint256"
+        },
+        {
+          "name": "dueAt",
+          "type": "uint256"
+        },
+        {
+          "name": "issueAt",
+          "type": "uint256"
+        },
+        {
+          "name": "sellerAddress",
+          "type": "address"
+        },
+        {
+          "name": "buyerAddress",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "validate",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "gotPaid",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "policyAddress",
+          "type": "address"
+        }
+      ],
+      "name": "attachPolicy",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "paymentInfo",
+          "type": "address"
+        }
+      ],
+      "name": "setPaymentInformation",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "add",
+          "type": "address"
+        }
+      ],
+      "name": "setFactorAddress",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ]
 
 var Invoice_List = [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_policyList",
+          "type": "address"
+        }
+      ],
+      "name": "setPolicyList",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
     {
       "constant": true,
       "inputs": [],
@@ -557,6 +654,25 @@ var Matching_Account_Invoice_List = [
     },
     {
       "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "Index_Policy",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
       "inputs": [],
       "name": "getInvoiceList",
       "outputs": [
@@ -576,6 +692,34 @@ var Matching_Account_Invoice_List = [
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_policyList",
+          "type": "address"
+        }
+      ],
+      "name": "setPolicyList",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getPolicyList",
+      "outputs": [
+        {
+          "name": "policy",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
       "type": "function"
     }
   ]
@@ -648,6 +792,52 @@ var Payment_Information = [
 
 var Policy_Contract = [
     {
+      "constant": true,
+      "inputs": [],
+      "name": "policy",
+      "outputs": [
+        {
+          "name": "totalAmount",
+          "type": "uint256"
+        },
+        {
+          "name": "currentAmount",
+          "type": "uint256"
+        },
+        {
+          "name": "isActive",
+          "type": "bool"
+        },
+        {
+          "name": "expireDate",
+          "type": "uint256"
+        },
+        {
+          "name": "creationDate",
+          "type": "uint256"
+        },
+        {
+          "name": "validator",
+          "type": "address"
+        },
+        {
+          "name": "factor",
+          "type": "address"
+        },
+        {
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "name": "seller",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "constant": false,
       "inputs": [
         {
@@ -682,52 +872,6 @@ var Policy_Contract = [
     },
     {
       "constant": false,
-      "inputs": [
-        {
-          "name": "amount",
-          "type": "uint256"
-        },
-        {
-          "name": "expireDate",
-          "type": "uint256"
-        }
-      ],
-      "name": "validate",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "isActive",
-      "outputs": [
-        {
-          "name": "isActive",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getCurrentAmount",
-      "outputs": [
-        {
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
       "inputs": [],
       "name": "reject",
       "outputs": [],
@@ -752,20 +896,6 @@ var Policy_Contract = [
     {
       "constant": true,
       "inputs": [],
-      "name": "getBuyer",
-      "outputs": [
-        {
-          "name": "buyer",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
       "name": "getTotalAmount",
       "outputs": [
         {
@@ -778,6 +908,20 @@ var Policy_Contract = [
       "type": "function"
     },
     {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "addCurrentAmount",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "constant": true,
       "inputs": [],
       "name": "getRequestAmount",
@@ -785,6 +929,28 @@ var Policy_Contract = [
         {
           "name": "amount",
           "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "currentRequest",
+      "outputs": [
+        {
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "name": "expireDate",
+          "type": "uint256"
+        },
+        {
+          "name": "isActive",
+          "type": "bool"
         }
       ],
       "payable": false,
@@ -808,25 +974,11 @@ var Policy_Contract = [
     {
       "constant": true,
       "inputs": [],
-      "name": "getCreationDate",
+      "name": "getDeleted",
       "outputs": [
         {
-          "name": "date",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "getSeller",
-      "outputs": [
-        {
-          "name": "seller",
-          "type": "address"
+          "name": "deleted",
+          "type": "bool"
         }
       ],
       "payable": false,
@@ -842,6 +994,20 @@ var Policy_Contract = [
         }
       ],
       "name": "invoicePaid",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "removeCurrentAmount",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -899,6 +1065,10 @@ var Policy_Contract = [
           "type": "address"
         },
         {
+          "name": "seller",
+          "type": "address"
+        },
+        {
           "name": "factor",
           "type": "address"
         },
@@ -922,6 +1092,94 @@ var Policy_Contract = [
       ],
       "name": "statusChanged",
       "type": "event"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getCurrentAmount",
+      "outputs": [
+        {
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isActive",
+      "outputs": [
+        {
+          "name": "isActive",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getSeller",
+      "outputs": [
+        {
+          "name": "seller",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getBuyer",
+      "outputs": [
+        {
+          "name": "buyer",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getCreationDate",
+      "outputs": [
+        {
+          "name": "date",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "name": "expireDate",
+          "type": "uint256"
+        }
+      ],
+      "name": "validate",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ]
 
@@ -934,6 +1192,29 @@ var Policy_List = [
         {
           "name": "length",
           "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "name": "seller",
+          "type": "address"
+        }
+      ],
+      "name": "findPolicy",
+      "outputs": [
+        {
+          "name": "policy",
+          "type": "address"
         }
       ],
       "payable": false,

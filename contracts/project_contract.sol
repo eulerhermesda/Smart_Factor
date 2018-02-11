@@ -16,6 +16,7 @@ contract Invoice_Contract{
     uint256 issueAt;
     address sellerAddress;
     address buyerAddress;
+    address factorAddress;
     bool isActive;
     address paymentInfo;
     bool policyAttached;
@@ -23,7 +24,8 @@ contract Invoice_Contract{
 
   Invoice public _invoice;
   Policy_Contract public _policy;
-  address _creator;
+  address public _creator;
+  address public policyList;
   
 
   /**********
@@ -33,6 +35,9 @@ contract Invoice_Contract{
       require(msg.sender == _invoice.sellerAddress);
       _;
   }
+
+
+
   modifier IsValidate(){
       require(_invoice.isActive);
       _;
@@ -71,6 +76,12 @@ contract Invoice_Contract{
     _invoice.buyerAddress = buyerAddress;  
     _invoice.paymentInfo = paymentInfo;
     _invoice.creationDate = now;
+    //_invoice.factorAddress= 0x821aea9a577a9b44299b9c15c88cf3087f3b5544;
+
+    //Looking if a policy exists
+    //Policy_List plist = Policy_List(policyList);
+    //address tmp = plist.findPolicy(buyerAddress,sellerAddress);
+    //_policy = Policy_Contract(plist.findPolicy(buyerAddress,sellerAddress));
 
   }
 
@@ -131,6 +142,18 @@ contract Invoice_Contract{
   function getPolicyAttached() external constant returns (bool policyAttached){
     return _invoice.policyAttached;
   }
+
+  function setPolicyList(address _policyList) public {
+    policyList = _policyList;
+  }
+
+  function getPolicyList() external constant returns(address policyL){
+    return policyList;
+  }
+
+  function getFactor() external constant returns(address fact){
+    return _invoice.factorAddress;
+  }
    
 
   /**********
@@ -170,13 +193,19 @@ contract Invoice_Contract{
   /**********
   Paid
   **********/
-  function gotPaid(uint256 amount) sellerOwnly() IsValidate() external { 
+  function gotPaid(uint256 amount) IsValidate() external { 
       require(amount + _invoice.currentAmount <= _invoice.amount && amount > 0);
-      _invoice.currentAmount = _invoice.currentAmount + amount;
-      Policy_Contract test;
-      if (_policy != test){
-        _policy.invoicePaid(amount);
+      if (_invoice.factorAddress !=0){
+        require (msg.sender == _invoice.factorAddress);
       }
+      else{
+        require(msg.sender == _invoice.sellerAddress);
+      }
+      _invoice.currentAmount = _invoice.currentAmount + amount;
+      // Policy_Contract test;
+      // if (_policy != test){
+      //   _policy.invoicePaid(amount);
+      // }
   }
 
   /*********
@@ -190,6 +219,11 @@ contract Invoice_Contract{
 
   function setPaymentInformation(address paymentInfo) sellerOwnly() public{
     _invoice.paymentInfo = paymentInfo;
+  }
+
+
+  function setFactorAddress(address add) public{
+    _invoice.factorAddress = add;
   }
 }
 
@@ -221,7 +255,7 @@ contract Policy_Contract{ //is Invoice
 
   }
   
-
+  bool _deleted;
   address  _creator;
   Policy public policy;
   Request public currentRequest;
@@ -242,6 +276,11 @@ contract Policy_Contract{ //is Invoice
   }
   modifier onlyValidator(){
     require(msg.sender == policy.validator);
+    _;
+  }
+
+  modifier onlyParticipants(){
+    require(msg.sender == policy.validator || msg.sender == policy.seller);
     _;
   }
 
@@ -296,6 +335,10 @@ contract Policy_Contract{ //is Invoice
     return currentRequest.isActive;
   }
 
+  function getDeleted() external constant returns (bool deleted){
+    return _deleted;
+  }
+
   /**********
   Constructor
   **********/
@@ -337,12 +380,28 @@ contract Policy_Contract{ //is Invoice
   Reject Request
   ***********/
   function reject() onlyValidator() public{
-    require(currentRequest.isActive);
-    currentRequest.isActive = false;
+    require(!policy.isActive);
+    //currentRequest.isActive = false;
+    _deleted = true;
     statusChanged("Request rejected");
 
   }
 
+  function addCurrentAmount(uint256 amount)public {
+    //require(policy.currentAmount + amount > policy.currentAmount);
+    uint256 tmp;
+    tmp = policy.currentAmount + amount;
+    if (tmp > policy.currentAmount && (tmp <= policy.totalAmount || tmp <= currentRequest.amount))
+      policy.currentAmount = tmp;
+    else
+      revert();
+  }
+
+  function removeCurrentAmount(uint256 amount) public {
+    require (policy.currentAmount - amount < policy.currentAmount);
+    policy.currentAmount = policy.currentAmount - amount;
+    
+  }
   /**********
   Invoice suscribe
   **********/
@@ -391,24 +450,12 @@ contract Policy_Contract{ //is Invoice
 //----------------------------------------------------
 contract Invoice_List{
   address[] List;
-  /* Hashtable used for easily recovering a specific invoice
-    The hash is created by the keccak256 of the "concatenation" of the parameters of the invoice. See the precise operation in the calculateHash function.
-  */
-  //mapping (uint256 => address) ListHashMatch; 
+  address policyList;
+  
 
-  // function calculateHash(
-  //   uint256 amount,
-  //   uint256 currency,
-  //   uint256 dueAt,
-  //   address sellerAddress,
-  //   address buyerAddress) internal constant returns (uint256 hash)
-  // {
-  //   // We don't care to use safemath since we only about the result to be identical, not to be the valid result of the operation
-  //   uint256 tmp = amount+currency+dueAt+uint256(sellerAddress)+uint256(buyerAddress);
-
-  //   return uint256(keccak256(tmp));
-
-  // }
+  function setPolicyList(address _policyList) public{
+    policyList = _policyList;
+  }
 
   function getInvoiceAtIndex(uint256 index) external constant returns (address invoice){
     require (index < List.length);
@@ -419,11 +466,9 @@ contract Invoice_List{
     return List.length;
   }
 
-  function addInvoice (address invoice/*, uint256 hash*/) public {
+  function addInvoice (address invoice) public {
     List.push(invoice);
-    //ListHashMatch(hash) = invoice;
   }
-
 
 
    function createInvoice(
@@ -434,17 +479,9 @@ contract Invoice_List{
     address buyerAddress,
     address paymentInfo)  public {
       Invoice_Contract newInv = new Invoice_Contract(amount,currency,dueAt,sellerAddress,buyerAddress,paymentInfo);
-        
-      List.push(newInv);
-      //Matching_Account_Invoice_List matchingList = Matching_Account_Invoice_List(0xF12b5dd4EAD5F743C6BaA640B0216200e89B60Da);
-      //Invoice_List invoiceListBuyer= Invoice_List(matchingList.getInvoiceList(buyerAddress));
-      //invoiceListBuyer.addInvoice(address(newInv));
-
-
-
-    /* Calculate the hash of the invoice */
-    //ListHashMatch(calculateHash(12,1111,34543534534,msg.sender,msg.sender))=invoice;
-
+      //MyContract newInv = new MyContract();
+      List.push(address(newInv));
+      
   } 
 
 }
@@ -454,6 +491,8 @@ contract Invoice_List{
 //----------------------------------------------------
 contract Policy_List{
   address[] List;
+  mapping(bytes32 => address) hashlist;
+
 
   function getPolicyAtIndex(uint256 index) external constant returns (address policy){
     require (index < List.length);
@@ -472,7 +511,13 @@ contract Policy_List{
       //Initialisation
       Policy_Contract newPolicy = new Policy_Contract(amount,  expireDate,  buyer, seller, factor,  validator);
       List.push(newPolicy);
+      bytes32 hash = keccak256(uint256(buyer)+uint256(seller));
+      hashlist[hash] = newPolicy;
+  }
 
+  function findPolicy(address buyer, address seller) external constant returns (address policy){
+    bytes32 hash = keccak256(uint256(buyer)+uint256(seller));
+    return hashlist[hash];
   }
 
 }
@@ -486,13 +531,23 @@ contract Matching_Account_Invoice_List {
   mapping(address => address) public Index_Invoice;
   mapping(address => address) public Index_Remise;
   mapping(address => address) public Index_Policy;
+  address policyList;
 
+
+  function setPolicyList(address _policyList) public{
+    policyList = _policyList;
+  }
+
+  function getPolicyList() external constant returns (address policy){
+    return policyList;
+  }
   // Invoice Management
 
   function addInvoiceList() public {
     require (Index_Invoice[msg.sender] == 0);
     Invoice_List list = new Invoice_List();
     Index_Invoice[msg.sender] = address(list);
+    //list.setPolicyList(policyList);
 
   }
 
@@ -623,3 +678,5 @@ contract logging_Contract{
   Transaction[] public listTrans;
 
 }
+
+

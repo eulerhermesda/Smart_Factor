@@ -79,6 +79,10 @@ var CURRENCIES = [
   },
 ];
 
+matchingInvoiceListAddress = addressesFromJson.addressmatchingAccount;
+policyListAddress = addressesFromJson.addressPolicyList;
+invoiceListAddress = addressesFromJson.addressInvoiceList;
+console.log(policyListAddress,invoiceListAddress,matchingInvoiceListAddress)
 
 
 function findNameFromAddress(address){
@@ -106,15 +110,18 @@ var invoiceList = new Contract();
 function init(){
   // Init matching invoice list
 	matchingInvoiceList.setAbi(Matching_Account_Invoice_List);
-	matchingInvoiceList.at("0xf12b5dd4ead5f743c6baa640b0216200e89b60da");
+	matchingInvoiceList.at(matchingInvoiceListAddress);
+  /*matchingInvoiceList.setPolicyList(policyListAddress,(err,res)=>{
+     if (err) console.error("setPolicyList err : " + err);
+   });*/
 
   // Init Policy List
 	policyList.setAbi(Policy_List);
-	policyList.at("0x345ca3e014aaf5dca488057592ee47305d9b3e10");
+	policyList.at(policyListAddress);
 
   // Init invoice Factory
   invoiceList.setAbi(Invoice_List);
-  invoiceList.at("0xf25186b5081ff5ce73482ad761db0eb0d25abfbf");
+  invoiceList.at(invoiceListAddress);
 
   document.getElementById("currentAccount").value="0x627306090abab3a6e1400e9345bc60c78a8bef57";
 }
@@ -373,15 +380,15 @@ async function getAllPolicies(){
       promiseList.push(new Promise((resolve,reject)=>{            
           getCreditLimitInfosAt(hex2address(policyAddressList[i])).then(data=>{
           //console.log(data.sellerAddress,currentAccount);            
-            if (hex2address(data.sellerAddress) == currentAccount || 
-              hex2address(data.buyerAddress ) == currentAccount ||
-              hex2address(data.validatorAddress) == currentAccount ||
-              hex2address(data.factorAddress) == currentAccount){
-               resolve(data);
-            }
-            else{
-              resolve(null);
-            }
+            // if (hex2address(data.sellerAddress) == currentAccount || 
+            //   hex2address(data.buyerAddress ) == currentAccount ||
+            //   hex2address(data.validatorAddress) == currentAccount ||
+            //   hex2address(data.factorAddress) == currentAccount){
+            //    resolve(data);
+            // }
+            // else{
+              resolve(data);
+            //}
           })
       }))
   }
@@ -570,6 +577,15 @@ async function getCreditLimitInfosAt(address){
        }
     })
   }));
+  // Deleted
+  promises.push(new Promise((resolve,reject)=>{
+    policy.getDeleted(function(err,res){
+      if (err!=null) reject("getDeleted err : " + err);
+      else{
+        resolve(hex2bool(res));
+       }
+    })
+  }));
 
   
   await Promise.all(promises).then(data => {  
@@ -587,6 +603,7 @@ async function getCreditLimitInfosAt(address){
     result.requestAmount = data[i++];
     result.requestDate = data[i++];
     result.requestActive = data[i++];
+    result.deleted = data[i++];
     result.currencyId=1;
 
     result.buyerName = findNameFromAddress(result.buyerAddress);
@@ -599,6 +616,9 @@ async function getCreditLimitInfosAt(address){
       result.endDate = result.requestDate;
     }
     result.statut = result.isActive?"Approved":"Not Approved";
+    if (result.deleted){
+      result.statut = Deleted;
+    }
     
        
   });

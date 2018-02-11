@@ -53,7 +53,7 @@
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="./index.html">BlockChain - POC</a>
+        <a class="navbar-brand" onclick="localStorage.setItem('transactions','');">BlockChain - POC</a>
         
       </div>
       <ul class="nav navbar-nav">
@@ -180,24 +180,24 @@
         <h3 class="panel-title">
           <span style="color: white; font-weight: bold;">Details Invoice</span>
         </h3>
-        <div class="pull-right">
+        <!-- <div class="pull-right">
           <button type="button" class="btn btn-default btn-xs btn-filter">
             <span class="glyphicon glyphicon-filter"></span> Filter</button>
-        </div>
+        </div> -->
       </div>
       <table id="table2" data-height="460">
         <thead>
           <tr>
             <th data-field="sellerName">Seller Name</th>
             <th data-field="buyerName">Buyer Name</th>
-            <th data-field="documentNumber">Document number</th>
-            <th data-field="statut">Statut</th>
-            <th data-field="documentDate">Document date</th>
+            <!-- <th data-field="documentNumber">Document number</th>   -->          
+            <!-- <th data-field="documentDate">Document date</th> -->
             <th data-field="documentDueDate">Document due date</th>
             <!-- <th data-field="documentType">Document type</th> -->
             <th data-field="currency">Document currency</th>
             <th data-field="totalValue">Total value</th>
-            <th data-field="newColHtml" style="text-align:center;" data-sortable="false" id="RequestDate">Validate data</th>
+            <th data-field="statut">Statut</th>
+            <th data-field="newColHtml" style="text-align:center;" data-sortable="false" id="RequestDate">Actions</th>
           </tr>
         </thead>
       </table>
@@ -215,6 +215,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
   <script src="js/rpc_Tools/RPC.js"></script>
+  <script src="js/contract_addresses.js"></script>
   <script src="js/contract_interface.js"></script>
   <script src="js/sha3.js"></script>
   <script src="js/abi.js"></script>

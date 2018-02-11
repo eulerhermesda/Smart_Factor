@@ -53,7 +53,7 @@
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="./index.html">BlockChain - POC</a>
+        <a class="navbar-brand" onclick="localStorage.setItem('transactions','');">BlockChain - POC</a>
         
       </div>
       <ul class="nav navbar-nav">
@@ -148,7 +148,7 @@
           
           <label for="limitRequired_id" class="control-label col-sm-2">Limit required</label>
           <div class="col-sm-3">
-            <input type="number" class="form-control" id="limitRequired_id" name="limitRequired" placeholder="Limit required" value="10">
+            <input type="number" class="form-control" id="limitRequired_id" name="limitRequired" placeholder="Limit required" >
           </div>
         </div>
 
@@ -228,6 +228,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
   <script src="js/rpc_Tools/RPC.js"></script>
+  <script src="js/contract_addresses.js"></script>
   <script src="js/contract_interface.js"></script>
   <script src="js/sha3.js"></script>
   <script src="js/abi.js"></script>

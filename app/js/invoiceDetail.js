@@ -89,44 +89,50 @@ $(document).ready(function () {
 
     });
     //document.getElementById('endDate_id').value = new Date().toDateInputValue();
-    refreshPage();
     init();
     var $table2 = $('#table2');
-    $(function () {
+    var tmpDat = new Object();
+    $table2.bootstrapTable({
+        data: tmpDat
+    })
+    refreshPage();
+    
+    
+    // $(function () {
         
-        invoiceList.getInvoiceListLength((err,res)=>{
+    //     invoiceList.getInvoiceListLength((err,res)=>{
             
-            if(err!=null) console.error(res);
-            else{ 
-                //console.log("length Invoice list : " + hex2int(res));
-                getAllInvoices().then(dat=>{
-                    creditsLimitsdata=dat;
-                    for (var i=0;i<dat.length;i++){
-                         var newColHtml = '<div class="btn-group pull-right">'+
-                            '<button id="bValid" type="button" class="btn btn-sm btn-default" onclick="validateInvoice(this,\''+dat[i].address+'\');">' + 
-                            '<span class="glyphicon glyphicon-ok" > </span>'+
-                            '</button>'+
-                            '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="paidInvoice(this,\''+dat[i].address+'\');">' +
-                            '<span class="glyphicon glyphicon-usd" > </span>'+
-                            '</button>';
-                        dat[i].newColHtml=newColHtml;
-                    }
+    //         if(err!=null) console.error("getInvoiceListLength err: " + res);
+    //         else{ 
+    //             //console.log("length Invoice list : " + hex2int(res));
+    //             getAllInvoices().then(dat=>{
+    //                 creditsLimitsdata=dat;
+    //                 for (var i=0;i<dat.length;i++){
+    //                      var newColHtml = '<div class="btn-group pull-right">'+
+    //                         '<button id="bValid" type="button" class="btn btn-sm btn-default" onclick="validateInvoice(this,\''+dat[i].address+'\');">' + 
+    //                         '<span class="glyphicon glyphicon-ok" > </span>'+
+    //                         '</button>'+
+    //                         '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="paidInvoice(this,\''+dat[i].address+'\',\''+dat[i].buyer+'\',\''+dat[i].seller+'\');">' +
+    //                         '<span class="glyphicon glyphicon-usd" > </span>'+
+    //                         '</button>';
+    //                     dat[i].newColHtml=newColHtml;
+    //                 }
 
                     
-                    $table2.bootstrapTable({
-                        data: dat
-                    });
-                });
+    //                 $table2.bootstrapTable({
+    //                     data: dat.reverse()
+    //                 });
+    //             });
                 
-            }
-        })
+    //         }
+    //     })
 
 
-        /*$('#creditLimiTable').bootstrapTable({
-            data: creditsLimitsdata
-        });*/
+    //     /*$('#creditLimiTable').bootstrapTable({
+    //         data: creditsLimitsdata
+    //     });*/
 
-    }); 
+    // }); 
 
 });
 
@@ -218,7 +224,7 @@ data = [
 
         "image": "http://www.sweetwater.com/images/items/120/StratAMM3SB2-medium.jpg?dfd0a9",
 
-        "factor": "SG"
+        "factor": "HSBC"
 
     },
 
@@ -250,7 +256,7 @@ data = [
 
         "image": "http://www.sweetwater.com/images/items/120/HBII10BGWB-medium.jpg?982763",
 
-        "factor": "SG"
+        "factor": "HSBC"
 
     },
 
@@ -310,97 +316,97 @@ $(".filter-insurer").append(insurers);
 
 $("#invoiceCurrency_id").append(currencies);
 
-var products = "";
+// var products = "";
 
-var makes = "";
+// var makes = "";
 
-var models = "";
+// var models = "";
 
-var types = "";
+// var types = "";
 
-var factors = "";
-
-
-
-for (var i = 0; i < data.length; i++) {
-
-    var make = data[i].make,
-
-        model = data[i].model,
-
-        type = data[i].type,
-
-        factor = data[i].factor,
-
-        price = data[i].price,
-
-        rawPrice = price.replace("$", ""),
-
-        rawPrice = parseInt(rawPrice.replace(",", "")),
-
-        image = data[i].image;
+// var factors = "";
 
 
 
-    //create product cards
+// for (var i = 0; i < data.length; i++) {
 
-    products += "<div class='col-sm-4 product' data-make='" + make + "' data-model='" + model + "' data-type='" + type + "' data-price='" + rawPrice + "'><div class='product-inner text-center'><img src='" + image + "'><br />Make: " + make + "<br />Model: " + model + "<br />Type: " + type + "<br />Price: " + price + "</div></div>";
+//     var make = data[i].make,
 
+//         model = data[i].model,
 
+//         type = data[i].type,
 
-    //create dropdown of makes
+//         factor = data[i].factor,
 
-    if (makes.indexOf("<option value='" + make + "'>" + make + "</option>") == -1) {
+//         price = data[i].price,
 
-        makes += "<option value='" + make + "'>" + make + "</option>";
+//         rawPrice = price.replace("$", ""),
 
-    }
+//         rawPrice = parseInt(rawPrice.replace(",", "")),
 
-
-
-    //create dropdown of models
-
-    if (models.indexOf("<option value='" + model + "'>" + model + "</option>") == -1) {
-
-        models += "<option value='" + model + "'>" + model + "</option>";
-
-    }
+//         image = data[i].image;
 
 
 
-    //create dropdown of types
+//     //create product cards
 
-    if (types.indexOf("<option value='" + type + "'>" + type + "</option>") == -1) {
-
-        types += "<option value='" + type + "'>" + type + "</option>";
-
-    }
+//     products += "<div class='col-sm-4 product' data-make='" + make + "' data-model='" + model + "' data-type='" + type + "' data-price='" + rawPrice + "'><div class='product-inner text-center'><img src='" + image + "'><br />Make: " + make + "<br />Model: " + model + "<br />Type: " + type + "<br />Price: " + price + "</div></div>";
 
 
 
+//     //create dropdown of makes
 
+//     if (makes.indexOf("<option value='" + make + "'>" + make + "</option>") == -1) {
 
-    //create dropdown of factors
+//         makes += "<option value='" + make + "'>" + make + "</option>";
 
-    if (factors.indexOf("<option value='" + factor + "'>" + factor + "</option>") == -1) {
-
-        factors += "<option value='" + factor + "'>" + factor + "</option>";
-
-    }
-
-}
+//     }
 
 
 
-$("#products").html(products);
+//     //create dropdown of models
 
-$(".filter-make").append(makes);
+//     if (models.indexOf("<option value='" + model + "'>" + model + "</option>") == -1) {
 
-$(".filter-model").append(models);
+//         models += "<option value='" + model + "'>" + model + "</option>";
 
-$(".filter-type").append(types);
+//     }
 
-$(".filter-factor").append(factors);
+
+
+//     //create dropdown of types
+
+//     if (types.indexOf("<option value='" + type + "'>" + type + "</option>") == -1) {
+
+//         types += "<option value='" + type + "'>" + type + "</option>";
+
+//     }
+
+
+
+
+
+//     //create dropdown of factors
+
+//     if (factors.indexOf("<option value='" + factor + "'>" + factor + "</option>") == -1) {
+
+//         factors += "<option value='" + factor + "'>" + factor + "</option>";
+
+//     }
+
+// }
+
+
+
+// $("#products").html(products);
+
+// $(".filter-make").append(makes);
+
+// $(".filter-model").append(models);
+
+// $(".filter-type").append(types);
+
+// $(".filter-factor").append(factors);
 
 
 
@@ -506,472 +512,10 @@ $("#search-form").submit(function (e) {
 
 var $table = $('#table');
 
-// var mydata =
 
-//     [
-
-//         {
-
-//             "sellerName": 0,
-
-//             "buyerName": "test0",
-
-//             "RequestDate": "$0",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 1,
-
-//             "buyerName": "test1",
-
-//             "RequestDate": "$1",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 2,
-
-//             "buyerName": "test2",
-
-//             "RequestDate": "$2",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 3,
-
-//             "buyerName": "test3",
-
-//             "RequestDate": "$3",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 4,
-
-//             "buyerName": "test4",
-
-//             "RequestDate": "$4",
-
-//             "factor": "Société Générale"
-
-//         },
-
-//         {
-
-//             "sellerName": 5,
-
-//             "buyerName": "test5",
-
-//             "RequestDate": "$5",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 6,
-
-//             "buyerName": "test6",
-
-//             "RequestDate": "$6",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 7,
-
-//             "buyerName": "test7",
-
-//             "RequestDate": "$7",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 8,
-
-//             "buyerName": "test8",
-
-//             "RequestDate": "$8",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 9,
-
-//             "buyerName": "test9",
-
-//             "RequestDate": "$9",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 10,
-
-//             "buyerName": "test10",
-
-//             "RequestDate": "$10",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 11,
-
-//             "buyerName": "test11",
-
-//             "RequestDate": "$11",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 12,
-
-//             "buyerName": "test12",
-
-//             "RequestDate": "$12",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 13,
-
-//             "buyerName": "test13",
-
-//             "RequestDate": "$13",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 14,
-
-//             "buyerName": "test14",
-
-//             "RequestDate": "$14",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 15,
-
-//             "buyerName": "test15",
-
-//             "RequestDate": "$15",
-
-//             "factor": "SG"
-
-//         },
-
-//         {
-
-//             "sellerName": 16,
-
-//             "buyerName": "test16",
-
-//             "RequestDate": "$16",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 17,
-
-//             "buyerName": "test17",
-
-//             "RequestDate": "$17",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 18,
-
-//             "buyerName": "test18",
-
-//             "RequestDate": "$18",
-
-//             "factor": "SG"
-
-//         },
-
-//         {
-
-//             "sellerName": 19,
-
-//             "buyerName": "test19",
-
-//             "RequestDate": "$19",
-
-//             "factor": "HSBC"
-
-//         },
-
-//         {
-
-//             "sellerName": 20,
-
-//             "buyerName": "test20",
-
-//             "RequestDate": "$20",
-
-//             "factor": "HSBC"
-
-//         }
-
-//     ];
-
-
-
-// $(function () {
-
-//     $('#table').bootstrapTable({
-
-//         data: mydata
-
-//     });
-
-// });
-
-
-/*  */
 
 var $table = $('#table2');
 
-// var invoiceDetaildata =
-
-//     [
-
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 1",
-//             "documentNumber": 1,
-//             "statut": "Submit",
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 100
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 2",
-//             "documentNumber": 2,
-//             "statut": "Submit",
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 200
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 1",
-//             "documentNumber": 3,
-//             "statut": "Submit",
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 100
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 2",
-//             "documentNumber": 4,
-//             "statut": "Submit",
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 200
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 1",
-//             "documentNumber": 5,
-//             "statut": "Submit",
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 100
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 2",
-//             "documentNumber": 6,
-//             "statut": "Submit",
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 200
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 1",
-//             "documentNumber": 7,
-//             "statut": "Submit",
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 100
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 2",
-//             "documentNumber": 8,
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 200
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 1",
-//             "documentNumber": 9,
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 100
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 2",
-//             "documentNumber": 10,
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 200
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 1",
-//             "documentNumber": 11,
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 100
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 2",
-//             "documentNumber": 12,
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 200
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 1",
-//             "documentNumber": 13,
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 100
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 2",
-//             "documentNumber": 14,
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 200
-//         },
-//         {
-//             "sellerName": "Seller 1",
-//             "buyerName": "Buyer 2",
-//             "documentNumber": 15,
-//             "documentDate": "01/01/2018",
-//             "documentDueDate": "31/01/2018",
-//             "documentType": "Invoice",
-//             "documentCurrency": "EUR",
-//             "totalValue": 200
-//         },
-
-//         {
-
-//             "sellerName": 16,
-
-//             "buyerName": "test16",
-
-//             "RequestDate": "$16",
-
-//             "invoiceCurrency": "HSBC",
-
-//             "RequestDate2": "",
-
-//             "limitRequired": ""
-
-//         }
-
-//     ];
-
-
-
-// $(function () {
-
-//     $('#table2').bootstrapTable({
-
-//         data: invoiceDetaildata
-
-//     });
-
-// });
 
 $(function () {
     $('#click').click(function (e) {
@@ -987,49 +531,6 @@ $(function () {
 });
 
 
-// For tests jquery
-
-
-/* to do!!
-
- 
-
-var fnf = document.getElementById("limitRequired_id");
-
-fnf.addEventListener('keyup', function(evt){
-
-    var n = parseInt(this.value.replace(/\D/g,''),10);
-
-    fnf.value = n.toLocaleString();
-
-}, false);
-
- 
-
- 
-
-*/
-
-//Blockchain Integration
-/*var currentAccount="0x627306090abab3a6e1400e9345bc60c78a8bef57";
-//unlockAccount(currentAccount,"test");
-var matchingInvoiceList = new Contract();
-var policyList = new Contract();
-var invoiceFactory = new Contract();
-
-function init(){
-  // Init matching invoice list
-    matchingInvoiceList.setAbi(Matching_Account_Invoice_List);
-    matchingInvoiceList.at("0xf12b5dd4ead5f743c6baa640b0216200e89b60da");
-
-  // Init Policy List
-    policyList.setAbi(Policy_List);
-    policyList.at("0x345ca3e014aaf5dca488057592ee47305d9b3e10");
-
-  // Init invoice Factory
-  invoiceFactory.setAbi(Invoice_Factory);
-  invoiceFactory.at("0xf25186b5081ff5ce73482ad761db0eb0d25abfbf");
-}*/
 
 
 function addInvoice(contractInvoiceList,amount, currentAmount, currency, dueAt, sellerAddress, buyerAddress,matchingIndex,paymentInfo){
@@ -1104,11 +605,10 @@ async function addInvoiceFromData(){
     var result;
      matchingInvoiceList.addInvoiceList(function(err, res){
         if(err == null){
-            //console.log("res addInvoiceList:" + res);  
+             
             matchingInvoiceList.getInvoiceList(function(err, res){
                 if(err == null){
-                    //console.log("InvoiceList address:" + hex2address(res));    
-                    
+                    console.log("res addInvoiceList OK getInvoiceList:" + res); 
                     invoiceListContract.setAbi(Invoice_List);
                     invoiceListContract.at(hex2address(res));
                     invoiceListContract.createInvoice(
@@ -1119,7 +619,7 @@ async function addInvoiceFromData(){
                         buyer,
                         111,
                         function(err,res){
-                            if (err != null) console.error("newInvoice err : " + err);
+                            if (err != null) console.error("createInvoice err : " + err);
                             else{
                                 console.log("Invoice successfully created");
                                 refreshTable();
@@ -1132,7 +632,38 @@ async function addInvoiceFromData(){
                                             else{
                                                 console.log("invoice address: " + hex2address(res));
                                                 invoice.at(hex2address(res));
+                                                if(factor != null){
+                                                    invoice.setFactorAddress(factor,(err,res)=>{
+                                                        if (err) console.log("setFactorAddress err" + err);
+                                                        else{
+                                                            console.log("Factor added to address");
+                                                            invoice.getFactor((err,res)=>{
+                                                                if (err) console.error("getFactor err : "+ err);
+                                                                else
+                                                                    console.log("Factor : " + hex2address(res));
+                                                            })
+                                                        }
+                                                    })
+                                                }
                                                 addInvoiceToBuyerSide(buyer,res);
+                                                addInvoiceToBuyerSide(factor,res);
+                                                addInvoiceToBuyerSide(insurer,res);
+                                                console.log("trying to findPolicy : ", buyer, seller);
+                                                policyList.findPolicy(buyer,seller,(err,res)=>{
+                                                    if (err) console.error("findPolicy err : " + err);
+                                                    else{
+                                                           var actualPolicy = new Contract()
+                                                         actualPolicy.setAbi(Policy_Contract);
+                                                         actualPolicy.at(hex2address(res));
+                                                         actualPolicy.addCurrentAmount(int2hex(amount),(err,res)=>{
+                                                             if (err) console.error("addCurrentAmount : " + err);
+                                                             else{
+                                                                console.log("amount successfully added")
+                                                            }
+                                                        })
+                                                    }
+                                                })
+                                                
                                             }
                                         });
                                     }
@@ -1156,6 +687,10 @@ async function addInvoiceFromData(){
                     
                     invoiceListContract.setAbi(Invoice_List);
                     invoiceListContract.at(hex2address(res));
+                    if(hex2address(res) == "0x0000000000000000000000000000000000000000"){
+                        console.log("invoiceList address null");
+                        invoiceListContract = invoiceList;
+                    }
                     invoiceListContract.createInvoice(
                         amount,
                         currency,
@@ -1163,7 +698,7 @@ async function addInvoiceFromData(){
                         seller,
                         buyer,
                         116,function(err,res){
-                            if (err != null) console.error("newInvoice err : " + err);
+                            if (err != null) console.error("createInvoice err : " + err);
                             else{
                                 console.log("Invoice successfully created");
                                 refreshTable();
@@ -1172,20 +707,43 @@ async function addInvoiceFromData(){
                                     else{
                                         console.log("length : " + parseInt(res,16));
                                         invoiceListContract.getInvoiceAtIndex(int2hex(parseInt(res,16)-1),function(err,res){
-                                            if (err != null) console.log("getInvoiceAtIndex err : " + err);
+                                            if (err != null) console.error("getInvoiceAtIndex err : " + err);
                                             else{
                                                 console.log("invoice address: " + hex2address(res));
                                                 invoice.at(hex2address(res));
+                                                if(factor != null){
+                                                    invoice.setFactorAddress(factor,(err,res)=>{
+                                                        if (err) console.log("setFactorAddress err" + err);
+                                                        else{
+                                                            console.log("Factor added to address");
+                                                            invoice.getFactor((err,res)=>{
+                                                                if (err) console.error("getFactor err : "+ err);
+                                                                else
+                                                                    console.log("Factor : " + hex2address(res));
+                                                            })
+                                                        }
+                                                    })
+                                                }
                                                 addInvoiceToBuyerSide(buyer,res);
-                                                console.log(buyer,res); 
-                                                invoice.getAmount(function(err,res){
-                                                    if (err != null) console.log("getAmount err : " + err);
+                                                addInvoiceToBuyerSide(factor,res);
+                                                addInvoiceToBuyerSide(insurer,res);
+                                                //console.log(buyer,res); 
+                                                policyList.findPolicy(buyer,seller,(err,res)=>{
+                                                    if (err) console.error("findPolicy err : " + err);
                                                     else{
-                                                         
-                                                        getInvoiceInfosAt(invoice.address).then(data=>{result=data})
-
+                                                        var actualPolicy = new Contract()
+                                                        actualPolicy.setAbi(Policy_Contract);
+                                                        actualPolicy.at(hex2address(res));
+                                                        actualPolicy.addCurrentAmount(int2hex(amount),(err,res)=>{
+                                                            if (err) console.error("addCurrentAmount : " + err);
+                                                            else{
+                                                                console.log("amount successfully added")
+                                                            }
+                                                        })
                                                     }
-                                                });
+                                                })                                                
+                                                
+
                                             }
                                         });
                                     }
@@ -1220,21 +778,22 @@ function testInvoice(){
 function refreshTable(){
     var $table2 = $('#table2');      
 
-    getAllInvoices().then(dat=>{            
+    getAllInvoices().then(dat=>{   
+        //console.log(dat);         
         creditsLimitsdata=dat;
         for (var i=0;i<dat.length;i++){
             var newColHtml = '<div class="btn-group pull-right">'+
                         '<button id="bValid" type="button" class="btn btn-sm btn-default" onclick="validateInvoice(this,\''+dat[i].address+'\');">' + 
-                        '<span class="glyphicon glyphicon-ok" > </span>'+
+                        '<span >Accept </span>'+
                         '</button>'+
-                        '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="paidInvoice(this,\''+dat[i].address+'\');">' +
-                        '<span class="glyphicon glyphicon-usd" > </span>'+
+                        '<button id="bEdit" type="button" class="btn btn-sm btn-default" onclick="paidInvoice(this,\''+dat[i].address+'\',\''+dat[i].buyer+'\',\''+dat[i].seller+'\');">' +
+                        '<span  > Declare paid </span>'+
                         '</button>';
             dat[i].newColHtml=newColHtml;
         }
 
         $table2.bootstrapTable('load',{
-            data: dat
+            data: dat.reverse()
         });
     });
             
@@ -1258,9 +817,15 @@ async function getAllInvoices(){
     });
 
     await promise.then(data=>{
+        //console.log("Invoice List : " + data)
         addressInvoiceList = data;
     });
-    invoiceList.at(addressInvoiceList);
+    if(hex2address(addressInvoiceList) != "0x0000000000000000000000000000000000000000"){
+        invoiceList.at(addressInvoiceList);
+    }
+    else{
+        invoiceList.at(addressesFromJson.addressInvoiceList);
+    }
 
     promise= new Promise((resolve,reject)=>{
         invoiceList.getInvoiceListLength(function(err,res){
@@ -1315,7 +880,10 @@ function getInvoiceAtIndex(invoiceIndex){
         if(err != null)console.error(err);
         else{
             console.log("getInvoiceList : " + hex2address(res1));
-            invoiceList.at(hex2address(res1));
+
+            if(hex2address(res1) != "0x0000000000000000000000000000000000000000"){
+                invoiceList.at(res1);
+            }
             invoiceList.getInvoiceListLength(function(err,res2){
                 if(err != null)console.error(err);
                 else{
@@ -1371,12 +939,12 @@ function validateInvoice(but,address){
 
 }
 
-function paidInvoice(but,address){
-    console.log("validateInvoice");
+function paidInvoice(but,address,buyer,seller){
+    console.log("paidInvoice");
     var $row = $(but).parents('tr');
     var $cols = $row.find('td');
     // get changed values    
-    amount = parseInt($cols[7].innerHTML);
+    amount = parseInt($cols[4].innerHTML);
 
     var invoice = new Contract();
     invoice.setAbi(Invoice_Contract);
@@ -1385,7 +953,22 @@ function paidInvoice(but,address){
 
         if (err != null) console.error(err);
         else{
-            console.log("Invoice Validated");
+            console.log("Invoice Paid");
+            policyList.findPolicy(buyer,seller,(err,res)=>{
+            if (err) console.error("findPolicy err : " + err);
+            else{
+                console.log("Policy address : " + hex2address(res))
+                 var actualPolicy = new Contract()
+                 actualPolicy.setAbi(Policy_Contract);
+                 actualPolicy.at(hex2address(res));
+                 actualPolicy.removeCurrentAmount(int2hex(amount),(err,res)=>{
+                     if (err) console.error("removeCurrentAmount : " + err);
+                     else{
+                        console.log("amount successfully removed")
+                    }
+                })
+            }
+        })
             refreshTable();
         }
 
@@ -1430,8 +1013,8 @@ function cancelEditInvoice(but,address){
 }
 
 function refreshPage(){
-  setTimeout(function() {
     refreshTable();
+  setTimeout(function() {    
     refreshPage();
 }, 5000);
 }
