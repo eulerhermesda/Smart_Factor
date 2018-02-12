@@ -611,10 +611,10 @@ async function getCreditLimitInfosAt(address){
     result.validator = findNameFromAddress(result.validatorAddress);
     result.currency = findCurrencyFromId(result.currencyId);
     result.factor = findNameFromAddress(result.factorAddress);
-    if (result.requestActive){
-      result.limitRequired = result.requestAmount;
-      result.endDate = result.requestDate;
-    }
+    // if (result.requestActive){
+    //   result.limitRequired = result.requestAmount;
+    //   result.endDate = result.requestDate;
+    // }
     result.statut = result.isActive?"Approved":"Not Approved";
     if (result.deleted){
       result.statut = Deleted;

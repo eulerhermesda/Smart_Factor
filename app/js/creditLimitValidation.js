@@ -432,10 +432,14 @@ function refreshTable(){
                               dat[i].newColHtml=newColHtml;
                            // }
                             creditsLimitsdata.push(dat[i]);
+                            if (!dat[i].isActive){
+                                dat[i].limitRequired = dat[i].requestAmount;
+                            }
                     //     }
                     // }
                     
                 }
+
                 $table.bootstrapTable('load',{
                     data: dat.reverse()
                 });
